@@ -5,12 +5,13 @@ import java.util.Scanner;
  *
  * @author
  * @author
- * @version     1.0
+ * @version 1.0
  */
 public class Utilidades {
 
     /**
      * TODO: Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     *
      * @param teclado
      * @param mensaje
      * @param minimo
@@ -18,14 +19,21 @@ public class Utilidades {
      * @return int numero
      */
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
-        int numero;
+        System.out.print(mensaje);
+        int resultado = teclado.nextInt();
 
+        while (resultado < minimo || resultado > maximo) {
+            System.out.print(mensaje);
+            resultado = teclado.nextInt();
+        }
 
-        return numero;
+        teclado.nextLine();
+        return resultado;
     }
 
     /**
      * TODO: Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     *
      * @param teclado
      * @param mensaje
      * @param minimo
@@ -33,14 +41,21 @@ public class Utilidades {
      * @return long numero
      */
     public static long leerNumero(Scanner teclado, String mensaje, long minimo, long maximo) {
-        long numero;
+        System.out.print(mensaje);
+        long resultado = teclado.nextLong();
 
+        while (resultado < minimo || resultado > maximo) {
+            System.out.print(mensaje);
+            resultado = teclado.nextLong();
+        }
 
-        return numero;
+        teclado.nextLine();
+        return resultado;
     }
 
     /**
      * TODO: Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     *
      * @param teclado
      * @param mensaje
      * @param minimo
@@ -48,13 +63,21 @@ public class Utilidades {
      * @return double numero
      */
     public static double leerNumero(Scanner teclado, String mensaje, double minimo, double maximo) {
-        double numero;
+        System.out.print(mensaje);
+        double resultado = teclado.nextDouble();
 
-        return numero;
+        while (resultado < minimo || resultado > maximo) {
+            System.out.print(mensaje);
+            resultado = teclado.nextDouble();
+        }
+
+        teclado.nextLine();
+        return resultado;
     }
 
     /**
      * TODO: TODO: Solicita una letra repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     *
      * @param teclado
      * @param mensaje
      * @param minimo
@@ -62,52 +85,79 @@ public class Utilidades {
      * @return char letra
      */
     public static char leerLetra(Scanner teclado, String mensaje, char minimo, char maximo) {
-        char letra;
+        System.out.print(mensaje);
+        char resultado = teclado.nextLine().charAt(0);
 
+        while (resultado < minimo || resultado > maximo) {
+            System.out.print(mensaje);
+            resultado = teclado.nextLine().charAt(0);
+        }
 
-
-        return letra;
+        return resultado;
     }
-
 
     /**
      * TODO: Solicita una fecha repetidamente hasta que se introduzca una correcta
+     *
      * @param teclado
      * @param mensaje
      * @return Fecha
      */
     public static Fecha leerFecha(Scanner teclado, String mensaje) {
-        int dia;
-        int mes;
-        int anio;
+        Fecha fecha = null;
+        boolean correcto = true;
 
+        while (correcto) {
+            System.out.println(mensaje);
+            int dia = leerNumero(teclado, "Ingrese día:", 1, 31);
+            int mes = leerNumero(teclado, "Ingrese mes:", 1, 12);
+            int anio = leerNumero(teclado, "Ingrese año:", Fecha.PRIMER_ANIO, Fecha.ULTIMO_ANIO);
 
+            if (Fecha.comprobarFecha(dia, mes, anio)) {
+                correcto = false;
+                fecha = new Fecha(dia,mes,anio);
+            } else {
+                System.out.println("Fecha introducida incorrecta.");
+            }
+        }
 
-        return new Fecha(dia, mes, anio);
+        return fecha;
     }
-
 
     /**
      * TODO: Solicita una fecha y hora repetidamente hasta que se introduzcan unas correctas
+     *
      * @param teclado
      * @param mensaje
      * @return Fecha
      */
     public static Fecha leerFechaHora(Scanner teclado, String mensaje) {
-        int dia;
-        int mes;
-        int anio;
-        int hora;
-        int minuto;
-        int segundo;
+        Fecha fecha = null;
+        boolean correcto = true;
 
+        while (correcto) {
+            System.out.println(mensaje);
+            int dia = leerNumero(teclado, "Ingrese día:", 1, 31);
+            int mes = leerNumero(teclado, "Ingrese mes:", 1, 12);
+            int anio = leerNumero(teclado, "Ingrese año:", Fecha.PRIMER_ANIO, Fecha.ULTIMO_ANIO);
+            int hora = leerNumero(teclado, "Ingrese hora:", 00, 23);
+            int minuto = leerNumero(teclado, "Ingrese minuto:", 00, 59);
+            int segundo = leerNumero(teclado, "Ingrese segundo:", 00, 59);
 
+            if (Fecha.comprobarFecha(dia, mes, anio) && Fecha.comprobarHora(hora, minuto, segundo)) {
+                correcto = false;
+            } else {
+                System.out.println("Fecha u hora introducida incorrecta.");
+            }
+            fecha = new Fecha(dia, mes, anio, hora, minuto, segundo);
+        }
 
-        return new Fecha(dia, mes, anio, hora, minuto, segundo);
+        return fecha;
     }
 
     /**
      * TODO: Imprime por pantalla el String pasado por parámetro
+     *
      * @param teclado
      * @param s
      * @return
