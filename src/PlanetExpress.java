@@ -152,13 +152,11 @@ public class PlanetExpress {
             System.out.println("Número de argumentos incorrecto");
             return;
         }
-
         do {
             opcion = menu(teclado);
             switch (opcion) {
                 case 1:     // TODO: Alta de Porte
-
-
+                    System.out.println("Ingrese código de puerto Origen: ");
                     break;
                 case 2:     // TODO: Alta de Cliente
 
@@ -169,6 +167,7 @@ public class PlanetExpress {
 
                     break;
                 case 4:     // TODO: Listado de envíos de un cliente
+
 
                     break;
                 case 5:     // TODO: Lista de envíos de un porte

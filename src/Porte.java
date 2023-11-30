@@ -23,6 +23,8 @@ public class Porte {
     private double precio;
     private ListaEnvios listaEnvios;
 
+    Scanner teclado = new Scanner(System.in);
+
     /**
      * TODO: Completa el constructo de la clase
      * 

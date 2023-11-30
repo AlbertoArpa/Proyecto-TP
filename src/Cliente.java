@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -51,7 +52,7 @@ public class Cliente {
 
     // TODO: Devuelve un envío en función de su posición
     public Envio getEnvio(int i) {
-
+        return listaEnvios.getEnvio(i - 1);
     }
 
     public ListaEnvios getListaEnvios() {
@@ -60,7 +61,6 @@ public class Cliente {
 
     // TODO: Añade un envío al cliente
     public boolean aniadirEnvio(Envio envio) {
-
     }
 
     public Envio buscarEnvio(String localizador) {

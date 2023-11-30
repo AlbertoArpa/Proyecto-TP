@@ -60,10 +60,15 @@ public class PuertoEspacial {
      */
     public double distancia(PuertoEspacial destino) {
         // TODO: Para calcular la distancia entre dos Puertos Espaciales, se transforman sus coordenadas esféricas a cartesianas
-
-
         // TODO: Una vez se tienen las coordenadas cartesianas, basta con calcular la distancia euclídea entre ellas:
-        return ;
+
+        double x1 = radio * Math.sin(azimut) * Math.cos(polar);
+        double y1 = radio * Math.sin(azimut) * Math.sin(polar);
+        double z1 = radio * Math.cos(azimut);
+        double x2 = destino.getRadio() * Math.sin(destino.getAzimut()) * Math.cos(destino.getPolar());
+        double y2 = destino.getRadio() * Math.sin(destino.getAzimut()) * Math.sin(destino.getPolar());
+        double z2 = destino.getRadio() * Math.cos(destino.getAzimut());
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
     }
 
     /**
@@ -71,7 +76,13 @@ public class PuertoEspacial {
      * @return ejemplo -> "Gaia Galactic Terminal(GGT), en (1.0 90.0 0.0), con 8 muelles" (Radio, Azimut, Polar)
      */
     public String toString() {
-        return " ";
+        int i = 1;
+        while (nombre.charAt(i) != ' ') i++;
+        char segunda = nombre.charAt(i + 1);
+        i++;
+        while (nombre.charAt(i) != ' ') i++;
+        char tercera = nombre.charAt(i + 1);
+        return "\"" + nombre + " (" + nombre.charAt(0) + segunda + tercera + "), en (" + radio + " " + azimut + " " + polar + "), con " + numMuelles + "\" (Radio, Azimut, Polar)";
     }
 
     /**
@@ -79,6 +90,12 @@ public class PuertoEspacial {
      * @return ejemplo -> "Gaia Galactic Terminal (GGT)"
      */
     public String toStringSimple() {
-        return " ";
+        int i = 1;
+        while (nombre.charAt(i) != ' ') i++;
+        char segunda = nombre.charAt(i + 1);
+        i++;
+        while (nombre.charAt(i) != ' ') i++;
+        char tercera = nombre.charAt(i + 1);
+        return "\"" + nombre + " (" + nombre.charAt(0) + segunda + tercera + ")\"";
     }
 }
