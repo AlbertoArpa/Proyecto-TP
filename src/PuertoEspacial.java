@@ -1,5 +1,5 @@
 /**
- * Description of the class
+ * Description of the class,
  *
  * @author
  * @author
