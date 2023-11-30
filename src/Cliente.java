@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * Description of the class
+ * Description of the class,
  *
  * @author Taller de Programación
  * @version 1.0
