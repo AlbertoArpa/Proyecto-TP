@@ -1,5 +1,4 @@
 import java.util.Scanner;
-//COMPLETA YA
 /**
  * Description of the class
  *
