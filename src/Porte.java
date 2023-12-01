@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @author
  * @author
- * @version     1.0
+ * @version 1.0
  */
 public class Porte {
     private boolean[][] huecos;
@@ -27,7 +27,7 @@ public class Porte {
 
     /**
      * TODO: Completa el constructo de la clase
-     * 
+     *
      * @param id
      * @param nave
      * @param origen
@@ -39,134 +39,176 @@ public class Porte {
      * @param precio
      */
     public Porte(String id, Nave nave, PuertoEspacial origen, int muelleOrigen, Fecha salida, PuertoEspacial destino, int muelleDestino, Fecha llegada, double precio) {
-
+        this.id = id;
+        this.nave = nave;
+        this.origen = origen;
+        this.muelleOrigen = muelleOrigen;
+        this.salida = salida;
+        this.destino = destino;
+        this.muelleDestino = muelleDestino;
+        this.llegada = llegada;
+        this.precio = precio;
     }
+
     public String getID() {
         return id;
     }
-    public Nave getNave(){
+
+    public Nave getNave() {
         return nave;
     }
+
     public PuertoEspacial getOrigen() {
         return origen;
     }
+
     public int getMuelleOrigen() {
         return muelleOrigen;
     }
-    public Fecha getSalida(){
+
+    public Fecha getSalida() {
         return salida;
     }
+
     public PuertoEspacial getDestino() {
         return destino;
     }
+
     public int getMuelleDestino() {
         return muelleDestino;
     }
+
     public Fecha getLlegada() {
         return llegada;
     }
+
     public double getPrecio() {
         return precio;
     }
+
     // TODO: Devuelve el número de huecos libres que hay en el porte
     public int numHuecosLibres() {
-
+        int result = 0;
+        for (int i = 0; i < huecos.length; i++) {
+            for (int j = 0; j < huecos[j].length; j++) {
+                if (!huecos[j][i]) result++;
+            }
+        }
+        return result;
     }
+
     // TODO: ¿Están llenos todos los huecos?
     public boolean porteLleno() {
-
+        return numHuecosLibres() == 0;
     }
+
     // TODO: ¿Está ocupado el hueco consultado?
     public boolean huecoOcupado(int fila, int columna) {
-
+        return huecos[fila][columna];
     }
+
     public Envio buscarEnvio(String localizador) {
         return listaEnvios.buscarEnvio(localizador);
     }
 
-
     /**
      * TODO: Devuelve el objeto Envio que corresponde con una fila o columna,
+     *
      * @param fila
      * @param columna
      * @return el objeto Envio que corresponde, o null si está libre o se excede en el límite de fila y columna
      */
     public Envio buscarEnvio(int fila, int columna) {
 
-        return null;
     }
 
 
     /**
      * TODO: Método que Si está desocupado el hueco que indica el envio, lo pone ocupado y devuelve true,
      *  si no devuelve false
+     *
      * @param envio
      * @return
      */
     public boolean ocuparHueco(Envio envio) {
-
-        return false;
+        boolean result = false;
+        if (!huecos[envio.getFila()][envio.getColumna()]) {
+            huecos[envio.getFila()][envio.getColumna()] = true;
+            result = true;
+        }
+        return result;
     }
-
 
     /**
      * TODO: A través del localizador del envio, se desocupará el hueco
+     *
      * @param localizador
      * @return
      */
     public boolean desocuparHueco(String localizador) {
-
-        return false;
+        boolean result = false;
+        if (huecos[buscarEnvio(localizador).getFila()][buscarEnvio(localizador).getColumna()]) {
+            huecos[buscarEnvio(localizador).getFila()][buscarEnvio(localizador).getColumna()] = false;
+            result = true;
+        }
+        return result;
     }
 
     /**
      * TODO: Devuelve una cadena con información completa del porte
+     *
      * @return ejemplo del formato -> "Porte PM0066 de Gaia Galactic Terminal(GGT) M5 (01/01/2023 08:15:00) a
-     *  Cidonia(CID) M1 (01/01/2024 11:00:05) en Planet Express One(EP-245732X) por 13424,56 SSD, huecos libres: 10"
+     * Cidonia(CID) M1 (01/01/2024 11:00:05) en Planet Express One(EP-245732X) por 13424,56 SSD, huecos libres: 10"
      */
     public String toString() {
-        return "";
+        return "Porte " + id + " de " + origen.toStringSimple() + " M" + muelleOrigen + " (" + salida + ") a " +
+                destino.toStringSimple() + " M" + muelleDestino + " (" + llegada + ") en " +
+                nave.toStringSimple() + " por " + precio + " SSD, huecos libres: " + numHuecosLibres();
     }
 
 
     /**
      * TODO: Devuelve una cadena con información abreviada del vuelo
+     *
      * @return ejemplo del formato -> "Porte PM0066 de GGT M5 (01/01/2023 08:15:00) a CID M1 (01/01/2024 11:00:05)"
      */
     public String toStringSimple() {
-        return "";
+        return "Porte " + id + " de " + origen.getCodigo() + " M" + muelleOrigen + " (" + salida + " a " +
+                destino.getCodigo() + " M" + muelleDestino + " (" + llegada + ")";
     }
-
 
     /**
      * TODO: Devuelve true si el código origen, destino y fecha son los mismos que el porte
+     *
      * @param codigoOrigen
      * @param codigoDestino
      * @param fecha
      * @return
      */
     public boolean coincide(String codigoOrigen, String codigoDestino, Fecha fecha) {
-        return ;
-    }
 
+        return codigoOrigen == origen.getCodigo() && codigoDestino == destino.getCodigo() && (fecha == salida) || (fecha == llegada);
+    }
 
     /**
      * TODO: Muestra la matriz de huecos del porte, ejemplo:
-     *        A  B  C
-     *      1[ ][ ][ ]
-     *      2[X][X][X]
-     *      3[ ][ ][ ]
-     *      4[ ][X][ ]
-     *     10[ ][ ][ ]
+     *    A  B  C
+     *  1[ ][ ][ ]
+     *  2[X][X][X]
+     *  3[ ][ ][ ]
+     *  4[ ][X][ ]
+     * 10[ ][ ][ ]
      */
     public void imprimirMatrizHuecos() {
-        System.out.print("  ");
+
+        for (int i = 0; i < )
 
     }
 
     /**
      * TODO: Devuelve true si ha podido escribir en un fichero la lista de envíos del porte, siguiendo las indicaciones
      *  del enunciado
+     *
      * @param fichero
      * @return
      */
@@ -185,6 +227,7 @@ public class Porte {
      * TODO: Genera un ID de porte. Este consistirá en una cadena de 6 caracteres, de los cuales los dos primeros
      *  serán PM y los 4 siguientes serán números aleatorios.
      *  NOTA: Usar el objeto rand pasado como argumento para la parte aleatoria.
+     *
      * @param rand
      * @return ejemplo -> "PM0123"
      */
@@ -197,6 +240,7 @@ public class Porte {
      *  y naves y la restricción de que no puede estar repetido el identificador, siguiendo las indicaciones
      *  del enunciado
      *  La función solicita repetidamente los parametros hasta que sean correctos
+     *
      * @param teclado
      * @param rand
      * @param puertosEspaciales
