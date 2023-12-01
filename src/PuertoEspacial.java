@@ -76,13 +76,7 @@ public class PuertoEspacial {
      * @return ejemplo -> "Gaia Galactic Terminal(GGT), en (1.0 90.0 0.0), con 8 muelles" (Radio, Azimut, Polar)
      */
     public String toString() {
-        int i = 1;
-        while (nombre.charAt(i) != ' ') i++;
-        char segunda = nombre.charAt(i + 1);
-        i++;
-        while (nombre.charAt(i) != ' ') i++;
-        char tercera = nombre.charAt(i + 1);
-        return "\"" + nombre + " (" + nombre.charAt(0) + segunda + tercera + "), en (" + radio + " " + azimut + " " + polar + "), con " + numMuelles + "\" (Radio, Azimut, Polar)";
+        return "\"" + nombre + " (" + codigo + "), en (" + radio + " " + azimut + " " + polar + "), con " + numMuelles + "\" (Radio, Azimut, Polar)";
     }
 
     /**
@@ -90,12 +84,6 @@ public class PuertoEspacial {
      * @return ejemplo -> "Gaia Galactic Terminal (GGT)"
      */
     public String toStringSimple() {
-        int i = 1;
-        while (nombre.charAt(i) != ' ') i++;
-        char segunda = nombre.charAt(i + 1);
-        i++;
-        while (nombre.charAt(i) != ' ') i++;
-        char tercera = nombre.charAt(i + 1);
-        return "\"" + nombre + " (" + nombre.charAt(0) + segunda + tercera + ")\"";
+        return "\"" + nombre + " (" + codigo + ")\"";
     }
 }
