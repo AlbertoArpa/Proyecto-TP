@@ -19,8 +19,7 @@ public class ListaEnvios {
      * @param capacidad
      */
     public ListaEnvios(int capacidad) {
-		
-		
+		envios = new Envio[capacidad];
     }
     // TODO: Devuelve el número de envíos que hay en la lista
     public int getOcupacion() {
@@ -28,11 +27,11 @@ public class ListaEnvios {
     }
     // TODO: ¿Está llena la lista de envíos?
     public boolean estaLlena() {
-
+        return envios[envios.length - 1] != null;
     }
 	//TODO: Devuelve el envio dado un indice
     public Envio getEnvio(int i) {
-        return null;
+        return envios[i];
     }
 
     /**
@@ -41,8 +40,14 @@ public class ListaEnvios {
      * @return true en caso de que se añada correctamente, false en caso de lista llena o error
      */
     public boolean insertarEnvio(Envio envio) {
-
-        return false;
+        int i = 0;
+        boolean result = false;
+        while ((envios[i] != null) && i < envios.length - 1) i++;
+        if (envios[i] == null) {
+            envios[i] = envio;
+            result = true;
+        }
+        return result;
     }
 
     /**
@@ -52,7 +57,7 @@ public class ListaEnvios {
      */
     public Envio buscarEnvio(String localizador) {
         int i = 0;
-        while ((localizador != envios[i].getLocalizador()) || i < envios.length - 1) i++;
+        while ((localizador != envios[i].getLocalizador()) && i < envios.length - 1) i++;
         Envio result;
         if (envios[i].getLocalizador() == localizador) result = envios[i];
         else result = null;
@@ -79,10 +84,11 @@ public class ListaEnvios {
      */
     public boolean eliminarEnvio (String localizador) {
         int i = 0;
-        while ((localizador != envios[i].getLocalizador()) || i < envios.length - 1) i++;
+        while ((localizador != envios[i].getLocalizador()) && i < envios.length - 1) i++;
         boolean result = false;
         if (envios[i].getLocalizador() == localizador) {
             envios[i] = null;
+            for (int j = i; j < envios.length - 1; j++) envios[j] = envios[j + 1];
             result = true;
         }
         return result;
@@ -93,7 +99,7 @@ public class ListaEnvios {
      * en el enunciado
      */
     public void listarEnvios() {
-
+        System.out.println("--------------------------------------------------\n-------- Lista de envios del porte " + );
     }
 
     /**
