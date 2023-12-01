@@ -98,7 +98,7 @@ public class ListaEnvios {
 
     /**
      * TODO: Permite seleccionar un Envio existente a partir de su localizador, usando el mensaje pasado como argumento
-     *  para la solicitud y siguiendo el orden y los textos mostrados en el enunciado.
+     *  para la solicitud y siguiendo el orden y los textos mostrados en el enunciado
      *  La función solicita repetidamente hasta que se introduzca un localizador correcto
      * @param teclado
      * @param mensaje

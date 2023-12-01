@@ -59,7 +59,7 @@ public class Cliente {
         return listaEnvios;
     }
 
-    // TODO: Añade un envío al cliente
+    // TODO: Añade un envío al cliente.
     public boolean aniadirEnvio(Envio envio) {
     }
 

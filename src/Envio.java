@@ -123,7 +123,7 @@ public class Envio {
 
     /**
      * TODO: Método para crear un nuevo envío para un porte y cliente específico, pidiendo por teclado los datos
-     *  necesarios al usuario en el orden y con los textos indicados en los ejemplos de ejecución del enunciado
+     *  necesarios al usuario en el orden y con los textos indicados en los ejemplos de ejecución del enunciado.
      *  La función solicita repetidamente los parámetros hasta que sean correctos
      * @param teclado
      * @param rand

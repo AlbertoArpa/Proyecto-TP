@@ -195,7 +195,7 @@ public class Porte {
     /**
      * TODO: Crea y devuelve un objeto Porte de los datos que selecciona el usuario de puertos espaciales
      *  y naves y la restricción de que no puede estar repetido el identificador, siguiendo las indicaciones
-     *  del enunciado.
+     *  del enunciado
      *  La función solicita repetidamente los parametros hasta que sean correctos
      * @param teclado
      * @param rand
