@@ -69,7 +69,7 @@ public class Cliente {
 
     // TODO: Elimina el envío de la lista de envíos del pasajero
     public boolean cancelarEnvio(String localizador) {
-
+        listaEnvios.eliminarEnvio()
     }
 
     public void listarEnvios() {
