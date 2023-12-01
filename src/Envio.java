@@ -65,8 +65,8 @@ public class Envio {
     }
     // TODO: Cancela este envío, eliminándolo de la lista de envíos del porte y del cliente correspondiente
     public boolean cancelar() {
-        cliente.cancelarEnvio(localizador);
-
+        porte.getListaEnvios().eliminarEnvio(localizador);
+        return cliente.cancelarEnvio(localizador);
     }
 
     /**

@@ -24,7 +24,7 @@ public class ListaEnvios {
     }
     // TODO: Devuelve el número de envíos que hay en la lista
     public int getOcupacion() {
-
+        return envios.length;
     }
     // TODO: ¿Está llena la lista de envíos?
     public boolean estaLlena() {
@@ -51,9 +51,12 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String localizador) {
-
-
-        return null;
+        int i = 0;
+        while ((localizador != envios[i].getLocalizador()) || i < envios.length - 1) i++;
+        Envio result;
+        if (envios[i].getLocalizador() == localizador) result = envios[i];
+        else result = null;
+        return result;
     }
 
     /**
@@ -75,8 +78,14 @@ public class ListaEnvios {
      * @return True si se ha borrado correctamente, false en cualquier otro caso
      */
     public boolean eliminarEnvio (String localizador) {
-
-        return false;
+        int i = 0;
+        while ((localizador != envios[i].getLocalizador()) || i < envios.length - 1) i++;
+        boolean result = false;
+        if (envios[i].getLocalizador() == localizador) {
+            envios[i] = null;
+            result = true;
+        }
+        return result;
     }
 
     /**

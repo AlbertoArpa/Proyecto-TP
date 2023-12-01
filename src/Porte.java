@@ -211,4 +211,8 @@ public class Porte {
 
         return null;
     }
+
+    public ListaEnvios getListaEnvios() {
+        return listaEnvios;
+    }
 }
