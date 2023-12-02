@@ -2,7 +2,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
- * Description of the class
+ * Description of the class,
  *
  * @author
  * @author
