@@ -119,7 +119,14 @@ public class Porte {
      * @return el objeto Envio que corresponde, o null si está libre o se excede en el límite de fila y columna
      */
     public Envio buscarEnvio(int fila, int columna) {
-
+        Envio result = null;
+        int i = 0;
+        while (listaEnvios.getEnvio(i).getFila() != fila && listaEnvios.getEnvio(i).getColumna() != columna) {
+            i++;
+        }
+        if (listaEnvios.getEnvio(i).getFila() == fila && listaEnvios.getEnvio(i).getColumna() == columna)
+            result = listaEnvios.getEnvio(i);
+        return result;
     }
 
 
@@ -187,22 +194,31 @@ public class Porte {
      */
     public boolean coincide(String codigoOrigen, String codigoDestino, Fecha fecha) {
 
-        return codigoOrigen == origen.getCodigo() && codigoDestino == destino.getCodigo() && (fecha == salida) || (fecha == llegada);
+        return codigoOrigen == origen.getCodigo() && codigoDestino == destino.getCodigo() && (fecha == salida || fecha == llegada);
     }
 
     /**
      * TODO: Muestra la matriz de huecos del porte, ejemplo:
-     *    A  B  C
-     *  1[ ][ ][ ]
-     *  2[X][X][X]
-     *  3[ ][ ][ ]
-     *  4[ ][X][ ]
-     * 10[ ][ ][ ]
+     *        A  B  C
+     *      1[ ][ ][ ]
+     *      2[X][X][X]
+     *      3[ ][ ][ ]
+     *      4[ ][X][ ]
+     *     10[ ][ ][ ]
      */
     public void imprimirMatrizHuecos() {
-
-        for (int i = 0; i < )
-
+        System.out.print("\t ");
+        for (int i = 0; i < huecos[0].length; i++) {
+            System.out.print("  " + ((char) (i + 1) + 'A'));
+        }
+        System.out.print("\n");
+        for (int j = 0; j < huecos.length; j++) {
+            System.out.printf("%2s", j + 1);
+            for (int k = 0; k < huecos[j].length; k++) {
+                if (huecos[j][k]) System.out.print("[X]");
+                else System.out.print("[ ]");
+            }
+        }
     }
 
     /**
@@ -213,9 +229,15 @@ public class Porte {
      * @return
      */
     public boolean generarListaEnvios(String fichero) {
-        PrintWriter pw = null;
         try {
-
+            PrintWriter pw = new PrintWriter(fichero);
+            pw.print("--------------------------------------------------\n-------- Lista de envíos del porte " +
+                    id + " --------\n--------------------------------------------------\nHueco\tCliente");
+            for (int i = 0; i < huecos.length; i++) {
+                for (int j = 0; j < huecos[i].length; j++) {
+                    System.out.print(i + j + "\t" + buscarEnvio(i, j).getCliente().toString());
+                }
+            }
             return true;
         } catch (FileNotFoundException e) {
             return false;
@@ -232,7 +254,9 @@ public class Porte {
      * @return ejemplo -> "PM0123"
      */
     public static String generarID(Random rand) {
-        return "PM";
+        String result = "PM";
+        for (int i = 1; i <= 4; i++) result = result + (rand.nextInt(10) - 1);
+        return result;
     }
 
     /**
@@ -252,9 +276,35 @@ public class Porte {
                                   ListaPuertosEspaciales puertosEspaciales,
                                   ListaNaves naves,
                                   ListaPortes portes) {
-
-        return null;
-    }
+        String codigoOrigen = Utilidades.leerCadena(teclado, "Ingrese código de puerto Origen: ");
+        while (puertosEspaciales.buscarPuertoEspacial(codigoOrigen) == null)
+            codigoOrigen = Utilidades.leerCadena(teclado, "Código de puerto no encontrado. Ingrese código de puerto Origen: ");
+        PuertoEspacial origen = puertosEspaciales.buscarPuertoEspacial(codigoOrigen);
+        int muelleOrigen = Utilidades.leerNumero(teclado, "Ingrese el muelle de Origen (1 - " + origen.getMuelles() + "):", 1, origen.getMuelles());
+        String codigoDestino = Utilidades.leerCadena(teclado, "Ingrese código de puerto Destino:");
+        while (puertosEspaciales.buscarPuertoEspacial(codigoDestino) == null)
+            codigoDestino = Utilidades.leerCadena(teclado, "Código de puerto no encontrado. Intrese código de puerto Destino:");
+        PuertoEspacial destino = puertosEspaciales.buscarPuertoEspacial(codigoDestino);
+        int muelleDestino = Utilidades.leerNumero(teclado, "Ingrese Terminal Destino (1 - " + destino.getMuelles() + "):", 1, destino.getMuelles());
+        naves.mostrarNaves();
+        String matricula = Utilidades.leerCadena(teclado, "Ingrese matrícula de la nave: ");
+        while (naves.buscarNave(matricula) == null)
+            matricula = Utilidades.leerCadena(teclado, "\tMatrícula de avión no encontrada.\nIngrese matrícula de la nave: ");
+        while (naves.buscarNave(matricula).getAlcance() < origen.distancia(destino))
+            Utilidades.leerCadena(teclado, "\tAvión seleccionado con alcance insuficiente.\nIngrese matrícula de la nave: ");
+        Nave nave = naves.buscarNave(matricula);
+        Fecha salida = Utilidades.leerFechaHora(teclado, "Introduzca la fecha de salida:");
+        Fecha llegada = Utilidades.leerFechaHora(teclado, "Introduzca la fecha de llegada:");
+        while (llegada.anterior(salida)) {
+            System.out.println("Llegada debe ser posterior a salida.");
+            salida = Utilidades.leerFechaHora(teclado, "Introduzca la fecha de salida:");
+            llegada = Utilidades.leerFechaHora(teclado, "Introduzca la fecha de llegada:");
+        }
+        double precio = Utilidades.leerNumero(teclado, "Ingrese precio del pasaje:", 0, 9999.99);
+        String id = generarID(rand);
+        System.out.println("\tPorte " + id + " creado correctamente");
+        return new Porte(id, nave, origen, muelleOrigen, salida, destino, muelleDestino, llegada, precio);
+    } //PARA QUE FUNCIONE HAY QUE HACER LOS METODOS buscarPuertoEspecial(codigo), mostrarNaves(), buscarNave(matricula)
 
     public ListaEnvios getListaEnvios() {
         return listaEnvios;
