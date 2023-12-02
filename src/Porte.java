@@ -276,15 +276,9 @@ public class Porte {
                                   ListaPuertosEspaciales puertosEspaciales,
                                   ListaNaves naves,
                                   ListaPortes portes) {
-        String codigoOrigen = Utilidades.leerCadena(teclado, "Ingrese código de puerto Origen: ");
-        while (puertosEspaciales.buscarPuertoEspacial(codigoOrigen) == null)
-            codigoOrigen = Utilidades.leerCadena(teclado, "Código de puerto no encontrado. Ingrese código de puerto Origen: ");
-        PuertoEspacial origen = puertosEspaciales.buscarPuertoEspacial(codigoOrigen);
+        PuertoEspacial origen = puertosEspaciales.seleccionarPuertoEspacial(teclado, "Ingrese código de puerto Origen: ");
         int muelleOrigen = Utilidades.leerNumero(teclado, "Ingrese el muelle de Origen (1 - " + origen.getMuelles() + "):", 1, origen.getMuelles());
-        String codigoDestino = Utilidades.leerCadena(teclado, "Ingrese código de puerto Destino:");
-        while (puertosEspaciales.buscarPuertoEspacial(codigoDestino) == null)
-            codigoDestino = Utilidades.leerCadena(teclado, "Código de puerto no encontrado. Intrese código de puerto Destino:");
-        PuertoEspacial destino = puertosEspaciales.buscarPuertoEspacial(codigoDestino);
+        PuertoEspacial destino = puertosEspaciales.seleccionarPuertoEspacial(teclado, "Ingrese código de puerto Destino:");
         int muelleDestino = Utilidades.leerNumero(teclado, "Ingrese Terminal Destino (1 - " + destino.getMuelles() + "):", 1, destino.getMuelles());
         naves.mostrarNaves();
         String matricula = Utilidades.leerCadena(teclado, "Ingrese matrícula de la nave: ");
