@@ -65,7 +65,7 @@ public class ListaEnvios {
      */
     public Envio buscarEnvio(String localizador) {
         int i = 0;
-        while ((localizador != envios[i].getLocalizador()) && i < envios.length - 1) i++;
+        while (i < envios.length && localizador != envios[i].getLocalizador()) i++;
         Envio result;
         if (envios[i].getLocalizador() == localizador) result = envios[i];
         else result = null;
@@ -83,8 +83,10 @@ public class ListaEnvios {
     public Envio buscarEnvio(String idPorte, int fila, int columna) {
         Envio result = null;
         int i = 0;
-        while (envios[i].getPorte().getID() != idPorte && envios[i].getFila() != fila && envios[i].getColumna() != columna && i < envios.length - 1) i++;
-        if (envios[i].getPorte().getID() == idPorte && envios[i].getFila() == fila && envios[i].getColumna() == columna) result = envios[i];
+        while (i < envios.length && envios[i].getPorte().getID() != idPorte && envios[i].getFila() != fila && envios[i].getColumna() != columna)
+            i++;
+        if (envios[i].getPorte().getID() == idPorte && envios[i].getFila() == fila && envios[i].getColumna() == columna)
+            result = envios[i];
         return result;
     }
 
