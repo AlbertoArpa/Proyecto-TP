@@ -281,12 +281,7 @@ public class Porte {
         PuertoEspacial destino = puertosEspaciales.seleccionarPuertoEspacial(teclado, "Ingrese código de puerto Destino:");
         int muelleDestino = Utilidades.leerNumero(teclado, "Ingrese Terminal Destino (1 - " + destino.getMuelles() + "):", 1, destino.getMuelles());
         naves.mostrarNaves();
-        String matricula = Utilidades.leerCadena(teclado, "Ingrese matrícula de la nave: ");
-        while (naves.buscarNave(matricula) == null)
-            matricula = Utilidades.leerCadena(teclado, "\tMatrícula de avión no encontrada.\nIngrese matrícula de la nave: ");
-        while (naves.buscarNave(matricula).getAlcance() < origen.distancia(destino))
-            Utilidades.leerCadena(teclado, "\tAvión seleccionado con alcance insuficiente.\nIngrese matrícula de la nave: ");
-        Nave nave = naves.buscarNave(matricula);
+        Nave nave = naves.seleccionarNave(teclado, "Ingrese matrícula de la nave: ", origen.distancia(destino));
         Fecha salida = Utilidades.leerFechaHora(teclado, "Introduzca la fecha de salida:");
         Fecha llegada = Utilidades.leerFechaHora(teclado, "Introduzca la fecha de llegada:");
         while (llegada.anterior(salida)) {
