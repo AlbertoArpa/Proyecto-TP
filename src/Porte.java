@@ -293,7 +293,7 @@ public class Porte {
         String id = generarID(rand);
         System.out.println("\tPorte " + id + " creado correctamente");
         return new Porte(id, nave, origen, muelleOrigen, salida, destino, muelleDestino, llegada, precio);
-    } //PARA QUE FUNCIONE HAY QUE HACER LOS METODOS buscarPuertoEspecial(codigo), mostrarNaves(), buscarNave(matricula)
+    }
 
     public ListaEnvios getListaEnvios() {
         return listaEnvios;
