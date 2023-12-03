@@ -18,29 +18,40 @@ public class ListaClientes {
      * @param capacidad
      */
     public ListaClientes(int capacidad) {
-        
-		
-		
+        clientes = new Cliente[capacidad];
     }
     // TODO: Devuelve el número de clientes que hay en la lista de clientes
     public int getOcupacion() {
-
+        int i = 0;
+        while (i < clientes.length && clientes[i] != null) i++;
+        return i;
     }
     // TODO: ¿Está llena la lista de clientes?
     public boolean estaLlena() {
-
+        return clientes[clientes.length - 1] != null;
     }
 	// TODO: Devuelve el cliente dada el indice
     public Cliente getCliente(int i) {
-        return null;
+        return clientes[i];
     }
     // TODO: Inserta el cliente en la lista de clientes
     public boolean insertarCliente(Cliente cliente) {
-
+        boolean result = false;
+        if (!estaLlena()) {
+            clientes[getOcupacion()] = cliente;
+            result = true;
+        }
+        return result;
     }
     // TODO: Devuelve el cliente que coincida con el email, o null en caso de no encontrarlo
     public Cliente buscarClienteEmail(String email) {
-
+        Cliente cliente = null;
+        int i = 0;
+        while (i < clientes.length && clientes[i].getEmail() != email) {
+            i++;
+        }
+        if ()
+        return cliente;
     }
 
     /**
