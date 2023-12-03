@@ -9,33 +9,38 @@ import java.util.Scanner;
  *
  * @author
  * @author
- * @version     1.0
+ * @version 1.0
  */
 public class ListaEnvios {
     private Envio[] envios;
+
     /**
      * TODO: Constructor de la clase para inicializar la lista a una capacidad determinada
      *
      * @param capacidad
      */
     public ListaEnvios(int capacidad) {
-		envios = new Envio[capacidad];
+        envios = new Envio[capacidad];
     }
+
     // TODO: Devuelve el número de envíos que hay en la lista
     public int getOcupacion() {
         return envios.length;
     }
+
     // TODO: ¿Está llena la lista de envíos?
     public boolean estaLlena() {
         return envios[envios.length - 1] != null;
     }
-	//TODO: Devuelve el envio dado un indice
+
+    //TODO: Devuelve el envio dado un indice
     public Envio getEnvio(int i) {
         return envios[i];
     }
 
     /**
      * TODO: insertamos un nuevo envío en la lista
+     *
      * @param envio
      * @return true en caso de que se añada correctamente, false en caso de lista llena o error
      */
@@ -52,6 +57,7 @@ public class ListaEnvios {
 
     /**
      * TODO: Buscamos el envio a partir del localizador pasado como parámetro
+     *
      * @param localizador
      * @return el envio que encontramos o null si no existe
      */
@@ -66,6 +72,7 @@ public class ListaEnvios {
 
     /**
      * TODO: Buscamos el envio a partir del idPorte, fila y columna pasados como parámetros
+     *
      * @param idPorte
      * @param fila
      * @param columna
@@ -79,10 +86,11 @@ public class ListaEnvios {
 
     /**
      * TODO: Eliminamos un envio a través del localizador pasado por parámetro
+     *
      * @param localizador
      * @return True si se ha borrado correctamente, false en cualquier otro caso
      */
-    public boolean eliminarEnvio (String localizador) {
+    public boolean eliminarEnvio(String localizador) {
         int i = 0;
         while ((localizador != envios[i].getLocalizador()) && i < envios.length - 1) i++;
         boolean result = false;
@@ -99,13 +107,17 @@ public class ListaEnvios {
      * en el enunciado
      */
     public void listarEnvios() {
-        System.out.println("--------------------------------------------------\n-------- Lista de envios del porte " + );
+        for (int i = 0; i < envios.length; i++) {
+            System.out.println("Porte " + envios[i].getPorte().getID() + " de " + envios[i].getPorte().getOrigen().getNombre() + "(" + envios[i].getPorte().getOrigen().getCodigo() + ") M" + envios[i].getPorte().getMuelleOrigen() + " (" + envios[i].getPorte().getSalida() +
+                    ") a " + envios[i].getPorte().getDestino().getNombre() + "(" + envios[i].getPorte().)
+        }
     }
 
     /**
      * TODO: Permite seleccionar un Envio existente a partir de su localizador, usando el mensaje pasado como argumento
      *  para la solicitud y siguiendo el orden y los textos mostrados en el enunciado
      *  La función solicita repetidamente hasta que se introduzca un localizador correcto
+     *
      * @param teclado
      * @param mensaje
      * @return
@@ -118,9 +130,9 @@ public class ListaEnvios {
     }
 
 
-
     /**
      * TODO: Añade los Envios al final de un fichero CSV, SIN SOBREESCRIBIR la información
+     *
      * @param fichero
      * @return
      */
@@ -138,6 +150,7 @@ public class ListaEnvios {
 
     /**
      * TODO: Lee los Envios del fichero CSV y los añade a las listas de sus respectivos Portes y Clientes
+     *
      * @param ficheroEnvios
      * @param portes
      * @param clientes
