@@ -48,10 +48,8 @@ public class ListaPuertosEspaciales {
      */
     public boolean insertarPuertoEspacial(PuertoEspacial puertoEspacial) {
         boolean result = false;
-        int i = 0;
-        while (lista[i] != null) i++;
-        if (lista[i] != null) {
-            lista[i] = puertoEspacial;
+        if (!estaLlena()) {
+            lista[getOcupacion()] = puertoEspacial;
             result = true;
         }
         return result;

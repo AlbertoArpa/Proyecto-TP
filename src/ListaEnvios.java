@@ -47,11 +47,9 @@ public class ListaEnvios {
      * @return true en caso de que se añada correctamente, false en caso de lista llena o error
      */
     public boolean insertarEnvio(Envio envio) {
-        int i = 0;
         boolean result = false;
-        while ((envios[i] != null) && i < envios.length - 1) i++;
-        if (envios[i] == null) {
-            envios[i] = envio;
+        if (!estaLlena()) {
+            envios[getOcupacion()] = envio;
             result = true;
         }
         return result;

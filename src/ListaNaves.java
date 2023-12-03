@@ -47,10 +47,8 @@ public class ListaNaves {
      */
     public boolean insertarNave(Nave nave) {
         boolean result = false;
-        int i = 0;
-        while (i < naves.length && naves[i] != null) i++;
-        if (i < naves.length) {
-            naves[i] = nave;
+        if (!estaLlena()) {
+            naves[getOcupacion()] = nave;
             result = true;
         }
         return result;
