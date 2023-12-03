@@ -79,9 +79,11 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String idPorte, int fila, int columna) {
-
-
-        return null;
+        Envio result = null;
+        int i = 0;
+        while (envios[i].getPorte().getID() != idPorte && envios[i].getFila() != fila && envios[i].getColumna() != columna && i < envios.length - 1) i++;
+        if (envios[i].getPorte().getID() == idPorte && envios[i].getFila() == fila && envios[i].getColumna() == columna) result = envios[i];
+        return result;
     }
 
     /**
@@ -108,8 +110,8 @@ public class ListaEnvios {
      */
     public void listarEnvios() {
         for (int i = 0; i < envios.length; i++) {
-            System.out.println("Porte " + envios[i].getPorte().getID() + " de " + envios[i].getPorte().getOrigen().getNombre() + "(" + envios[i].getPorte().getOrigen().getCodigo() + ") M" + envios[i].getPorte().getMuelleOrigen() + " (" + envios[i].getPorte().getSalida() +
-                    ") a " + envios[i].getPorte().getDestino().getNombre() + "(" + envios[i].getPorte().)
+            System.out.println("\tPorte " + envios[i].getPorte().getID() + " de " + envios[i].getPorte().getOrigen().getNombre() + "(" + envios[i].getPorte().getOrigen().getCodigo() + ") M" + envios[i].getPorte().getMuelleOrigen() + " (" + envios[i].getPorte().getSalida() +
+                    ") a " + envios[i].getPorte().getDestino().getNombre() + "(" + envios[i].getPorte().getDestino().getCodigo() + ") M" + envios[i].getPorte().getMuelleDestino() + " (" + envios[i].getPorte().getLlegada() + ")");
         }
     }
 
@@ -124,8 +126,12 @@ public class ListaEnvios {
      */
     public Envio seleccionarEnvio(Scanner teclado, String mensaje) {
         Envio envio = null;
-
-
+        int i = 0;
+        String localizador = Utilidades.leerCadena(teclado, mensaje);
+        while (i < envios.length - 1 && envios[i].getLocalizador() != localizador) {
+            i++;
+        }
+        if (envios[i].getLocalizador() == localizador) envio = envios[i];
         return envio;
     }
 
@@ -137,9 +143,12 @@ public class ListaEnvios {
      * @return
      */
     public boolean aniadirEnviosCsv(String fichero) {
-        PrintWriter pw = null;
-        try {
 
+        try {
+            PrintWriter pw = new PrintWriter(fichero);
+            for (int i = 0; i < envios.length; i++) {
+                pw.append("\n" + envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio());
+            }
             return true;
         } catch (Exception e) {
             return false;
