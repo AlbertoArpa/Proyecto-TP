@@ -114,8 +114,8 @@ public class ListaEnvios {
      */
     public void listarEnvios() {
         for (int i = 0; i < envios.length; i++) {
-            System.out.println("\tPorte " + envios[i].getPorte().getID() + " de " + envios[i].getPorte().getOrigen().getNombre() + "(" + envios[i].getPorte().getOrigen().getCodigo() + ") M" + envios[i].getPorte().getMuelleOrigen() + " (" + envios[i].getPorte().getSalida() +
-                    ") a " + envios[i].getPorte().getDestino().getNombre() + "(" + envios[i].getPorte().getDestino().getCodigo() + ") M" + envios[i].getPorte().getMuelleDestino() + " (" + envios[i].getPorte().getLlegada() + ")");
+            System.out.println("\tEnvío " + envios[i].getLocalizador() + " para " + envios[i].getPorte().toStringSimple() +
+                    "en hueco " + envios[i].getHueco() + " por " + envios[i].getPrecio() + " SSD");
         }
     }
 
