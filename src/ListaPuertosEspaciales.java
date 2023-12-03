@@ -26,7 +26,7 @@ public class ListaPuertosEspaciales {
     // TODO: Devuelve el número de puertos espaciales que hay en la lista
     public int getOcupacion() {
         int i = 0;
-        while (lista[i] != null && i < lista.length - 1) i++;
+        while (i < lista.length && lista[i] != null) i++;
         return i;
     }
 

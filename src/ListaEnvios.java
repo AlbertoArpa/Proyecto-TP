@@ -25,7 +25,9 @@ public class ListaEnvios {
 
     // TODO: Devuelve el número de envíos que hay en la lista
     public int getOcupacion() {
-        return envios.length;
+        int i = 0;
+        while (i < envios.length && envios[i] != null) i++;
+        return i;
     }
 
     // TODO: ¿Está llena la lista de envíos?

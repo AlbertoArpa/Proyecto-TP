@@ -23,7 +23,7 @@ public class ListaNaves {
     // TODO: Devuelve el número de naves que hay en la lista
     public int getOcupacion() {
         int i = 0;
-        while (naves[i] != null && i < naves.length - 1) {
+        while (i < naves.length && naves[i] != null) {
             i++;
         }
         return i;
