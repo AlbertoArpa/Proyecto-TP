@@ -7,10 +7,11 @@ import java.util.Scanner;
  *
  * @author
  * @author
- * @version     1.0
+ * @version 1.0
  */
 public class ListaPortes {
     private Porte[] portes;
+
     /**
      * TODO: Constructor de la clase para inicializar la lista a una capacidad determinada
      *
@@ -19,18 +20,20 @@ public class ListaPortes {
     public ListaPortes(int capacidad) {
         portes = new Porte[capacidad];
     }
+
     // TODO: Devuelve el número de portes que hay en la lista
     public int getOcupacion() {
         int i = 0;
         while (i < portes.length && portes[i] != null) i++;
         return i;
     }
+
     // TODO: ¿Está llena la lista?
     public boolean estaLlena() {
         return portes[portes.length - 1] != null;
     }
 
-	//TODO: devuelve un porte dado un indice
+    //TODO: devuelve un porte dado un indice
     public Porte getPorte(int i) {
         return portes[i];
     }
@@ -38,6 +41,7 @@ public class ListaPortes {
 
     /**
      * TODO: Devuelve true si puede insertar el porte
+     *
      * @param porte
      * @return false en caso de estar llena la lista o de error
      */
@@ -53,6 +57,7 @@ public class ListaPortes {
 
     /**
      * TODO: Devuelve el objeto Porte que tenga el identificador igual al parámetro id
+     *
      * @param id
      * @return el objeto Porte que encontramos o null si no existe
      */
@@ -65,6 +70,7 @@ public class ListaPortes {
     /**
      * TODO: Devuelve un nuevo objeto ListaPortes conteniendo los Portes que vayan de un puerto espacial a otro
      *  en una determinada fecha
+     *
      * @param codigoOrigen
      * @param codigoDestino
      * @param fecha
@@ -87,7 +93,7 @@ public class ListaPortes {
      */
     public void listarPortes() {
         for (int i = 0; i < portes.length; i++)
-            System.out.println("Porte " + portes[i].getID() + " de " + portes[i].getOrigen().getNombre() + "(" + portes[i].getOrigen().getCodigo() + ") M"  + " (" + portes[i].getSalida() +
+            System.out.println("Porte " + portes[i].getID() + " de " + portes[i].getOrigen().getNombre() + "(" + portes[i].getOrigen().getCodigo() + ") M" + " (" + portes[i].getSalida() +
                     ") a " + portes[i].getDestino().getNombre() + "(" + portes[i].getDestino().getCodigo() + ") M" + portes[i].getLlegada() + ")");
     }
 
@@ -97,6 +103,7 @@ public class ListaPortes {
      *  la solicitud y siguiendo el orden y los textos mostrados en el enunciado, y usando la cadena cancelar para
      *  salir devolviendo null.
      *  La función solicita repetidamente hasta que se introduzca un ID correcto
+     *
      * @param teclado
      * @param mensaje
      * @param cancelar
@@ -117,6 +124,7 @@ public class ListaPortes {
     /**
      * TODO: Ha de escribir la lista de Portes en la ruta y nombre del fichero pasado como parámetro.
      *  Si existe el fichero, SE SOBREESCRIBE, si no existe se crea.
+     *
      * @param fichero
      * @return
      */
@@ -136,6 +144,7 @@ public class ListaPortes {
     /**
      * TODO: Genera una lista de Portes a partir del fichero CSV, usando los límites especificados como argumentos para
      *  la capacidad de la lista
+     *
      * @param fichero
      * @param capacidad
      * @param puertosEspaciales
