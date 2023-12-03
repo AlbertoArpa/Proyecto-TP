@@ -1,5 +1,8 @@
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
+
+import static java.lang.Double.valueOf;
 
 /**
  * Description of the class,
@@ -17,8 +20,7 @@ public class ListaPuertosEspaciales {
      * @param capacidad
      */
     public ListaPuertosEspaciales(int capacidad) {
-
-
+        lista = new PuertoEspacial[capacidad];
     }
 
     // TODO: Devuelve el número de puertos espaciales que hay en la lista
@@ -96,9 +98,12 @@ public class ListaPuertosEspaciales {
      * @return
      */
     public boolean escribirPuertosEspacialesCsv(String nombre) {
-        PrintWriter pw = null;
         try {
-            pw.
+            PrintWriter pw = new PrintWriter(nombre);
+            for (int i = 0; i < lista.length; i++) {
+                pw.println(lista[i].getNombre() + ";" + lista[i].getCodigo() + ";" + lista[i].getRadio() + ";" + lista[i].getAzimut() + ";" + lista[i].getPolar() + ";" + lista[i].getMuelles() + ";");
+                pw.close();
+            }
             return true;
         } catch (Exception e) {
             return false;
@@ -118,9 +123,26 @@ public class ListaPuertosEspaciales {
      */
     public static ListaPuertosEspaciales leerPuertosEspacialesCsv(String fichero, int capacidad) {
         ListaPuertosEspaciales listaPuertosEspaciales = new ListaPuertosEspaciales(capacidad);
-        Scanner sc = null;
         try {
-
+            Scanner sc = new Scanner(new FileReader(fichero));
+            for (int i = 0; i < capacidad - 1; i++) {
+                String linea, nombre = "", codigo = "";
+                double radio, azimut, polar;
+                int numMuelles;
+                linea = sc.nextLine();
+                int j = 0;
+                while (linea.charAt(j) != ';') {
+                    nombre += linea.charAt(j);
+                    j++;
+                }
+                j++;
+                while (linea.charAt(j) != ';') {
+                    codigo += linea.charAt(j);
+                    j++;
+                }
+                radio =
+                listaPuertosEspaciales.insertarPuertoEspacial(new PuertoEspacial(nombre, codigo, radio, azimut, polar, numMuelles));
+            }
         } catch (Exception e) {
             return null;
         } finally {
