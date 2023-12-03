@@ -17,17 +17,17 @@ public class ListaPortes {
      * @param capacidad
      */
     public ListaPortes(int capacidad) {
-        
-		
-		
+        portes = new Porte[capacidad];
     }
     // TODO: Devuelve el número de portes que hay en la lista
     public int getOcupacion() {
-
+        int i = 0;
+        while (i < portes.length && portes[i] != null) i++;
+        return i;
     }
     // TODO: ¿Está llena la lista?
     public boolean estaLlena() {
-
+        return portes[portes.length - 1] != null;
     }
 
 	//TODO: devuelve un porte dado un indice
@@ -42,8 +42,12 @@ public class ListaPortes {
      * @return false en caso de estar llena la lista o de error
      */
     public boolean insertarPorte(Porte porte) {
-
-        return false;
+        boolean result = false;
+        if (!estaLlena()) {
+            portes[getOcupacion()] = porte;
+            result = true;
+        }
+        return result;
     }
 
 
@@ -53,8 +57,9 @@ public class ListaPortes {
      * @return el objeto Porte que encontramos o null si no existe
      */
     public Porte buscarPorte(String id) {
-
-        return null;
+        int i = 0;
+        while (i < portes.length && portes[i].getID() != id) i++;
+        return portes[i];
     }
 
     /**
@@ -66,8 +71,14 @@ public class ListaPortes {
      * @return
      */
     public ListaPortes buscarPortes(String codigoOrigen, String codigoDestino, Fecha fecha) {
-        
-
+        ListaPortes listaPortes = new ListaPortes(portes.length);
+        int j = 0;
+        for (int i = 0; i < portes.length; i++) {
+            if (portes[i].getOrigen().getCodigo() == codigoOrigen && portes[i].getDestino().getCodigo() == codigoDestino && portes[i].getSalida() == fecha) {
+                listaPortes.portes[j] = portes[i];
+                j++;
+            }
+        }
         return listaPortes;
     }
 
@@ -75,7 +86,9 @@ public class ListaPortes {
      * TODO: Muestra por pantalla los Portes siguiendo el formato de los ejemplos del enunciado
      */
     public void listarPortes() {
-
+        for (int i = 0; i < portes.length; i++)
+            System.out.println("Porte " + portes[i].getID() + " de " + portes[i].getOrigen().getNombre() + "(" + portes[i].getOrigen().getCodigo() + ") M"  + " (" + portes[i].getSalida() +
+                    ") a " + portes[i].getDestino().getNombre() + "(" + portes[i].getDestino().getCodigo() + ") M" + portes[i].getLlegada() + ")");
     }
 
 
@@ -92,7 +105,12 @@ public class ListaPortes {
     public Porte seleccionarPorte(Scanner teclado, String mensaje, String cancelar) {
         listarPortes();
         Porte porte = null;
-
+        String cadena = Utilidades.leerCadena(teclado, mensaje);
+        if (cadena != cancelar) porte = buscarPorte(cadena);
+        while (cadena != cancelar && porte == null) {
+            cadena = Utilidades.leerCadena(teclado, "\tPorte no encontrado.\n" + mensaje);
+            if (cadena != cancelar) porte = buscarPorte(cadena);
+        }
         return porte;
     }
 
@@ -104,7 +122,11 @@ public class ListaPortes {
      */
     public boolean escribirPortesCsv(String fichero) {
         try {
-
+            PrintWriter pw = new PrintWriter(fichero);
+            for (int i = 0; i < portes.length; i++) {
+                System.out.println(portes[i].getID() + ";" + portes[i].getNave().getMatricula() + ";" + portes[i].getOrigen().getCodigo() + ";" + portes[i].getMuelleOrigen() + ";" + portes[i].getSalida() +
+                        ";" + portes[i].getDestino().getCodigo() + ";" + portes[i].getMuelleDestino() + ";" + portes[i].getLlegada() + ";" + portes[i].getPrecio());
+            }
             return true;
         } catch (FileNotFoundException e) {
             return false;
