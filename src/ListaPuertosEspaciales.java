@@ -100,8 +100,8 @@ public class ListaPuertosEspaciales {
             PrintWriter pw = new PrintWriter(nombre);
             for (int i = 0; i < lista.length; i++) {
                 pw.println(lista[i].getNombre() + ";" + lista[i].getCodigo() + ";" + lista[i].getRadio() + ";" + lista[i].getAzimut() + ";" + lista[i].getPolar() + ";" + lista[i].getMuelles() + ";");
-                pw.close();
             }
+            pw.close();
             return true;
         } catch (Exception e) {
             return false;

@@ -144,6 +144,7 @@ public class ListaEnvios {
             for (int i = 0; i < envios.length; i++) {
                 pw.append("\n" + envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio());
             }
+            pw.close();
             return true;
         } catch (Exception e) {
             return false;

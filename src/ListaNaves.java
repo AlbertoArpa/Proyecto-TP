@@ -110,6 +110,7 @@ public class ListaNaves {
             for (int i = 0; i < naves.length; i++) {
                 pw.println(naves[i].getMarca() + ";" + naves[i].getModelo() + ";" + naves[i].getMatricula() + ";" + naves[i].getFilas() + ";" + naves[i].getColumnas() + ";" + naves[i].getAlcance() + "E-5");
             }
+            pw.close();
             return true;
         } catch (Exception e) {
             return false;

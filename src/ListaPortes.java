@@ -137,6 +137,7 @@ public class ListaPortes {
                 System.out.println(portes[i].getID() + ";" + portes[i].getNave().getMatricula() + ";" + portes[i].getOrigen().getCodigo() + ";" + portes[i].getMuelleOrigen() + ";" + portes[i].getSalida() +
                         ";" + portes[i].getDestino().getCodigo() + ";" + portes[i].getMuelleDestino() + ";" + portes[i].getLlegada() + ";" + portes[i].getPrecio());
             }
+            pw.close();
             return true;
         } catch (FileNotFoundException e) {
             return false;
