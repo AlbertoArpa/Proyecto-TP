@@ -298,4 +298,12 @@ public class Porte {
     public ListaEnvios getListaEnvios() {
         return listaEnvios;
     }
+
+    public int getFilas() {
+        return huecos.length;
+    }
+
+    public int getColumnas() {
+        return huecos[0].length;
+    }
 }
