@@ -141,7 +141,7 @@ public class ListaEnvios {
     public boolean aniadirEnviosCsv(String fichero) {
         try {
             PrintWriter pw = new PrintWriter(fichero);
-            for (int i = 0; i < envios.length; i++) {
+            for (int i = 0; i < getOcupacion; i++) {
                 pw.append("\n" + envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio());
             }
             pw.close();

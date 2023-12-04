@@ -133,7 +133,7 @@ public class ListaPortes {
     public boolean escribirPortesCsv(String fichero) {
         try {
             PrintWriter pw = new PrintWriter(fichero);
-            for (int i = 0; i < portes.length; i++) {
+            for (int i = 0; i < getOcupacion(); i++) {
                 System.out.println(portes[i].getID() + ";" + portes[i].getNave().getMatricula() + ";" + portes[i].getOrigen().getCodigo() + ";" + portes[i].getMuelleOrigen() + ";" + portes[i].getSalida() +
                         ";" + portes[i].getDestino().getCodigo() + ";" + portes[i].getMuelleDestino() + ";" + portes[i].getLlegada() + ";" + portes[i].getPrecio());
             }

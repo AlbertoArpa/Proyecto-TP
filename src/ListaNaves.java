@@ -107,7 +107,7 @@ public class ListaNaves {
     public boolean escribirNavesCsv(String nombre) {
         try {
             PrintWriter pw = new PrintWriter(nombre);
-            for (int i = 0; i < naves.length; i++) {
+            for (int i = 0; i < getOcupacion(); i++) {
                 pw.println(naves[i].getMarca() + ";" + naves[i].getModelo() + ";" + naves[i].getMatricula() + ";" + naves[i].getFilas() + ";" + naves[i].getColumnas() + ";" + naves[i].getAlcance() + "E-5");
             }
             pw.close();
