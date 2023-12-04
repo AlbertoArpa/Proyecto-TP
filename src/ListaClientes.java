@@ -52,11 +52,11 @@ public class ListaClientes {
     public Cliente buscarClienteEmail(String email) {
         Cliente cliente = null;
         int i = 0;
-        while (i < clientes.length && clientes[i].getEmail() != email) {
+        while (i < clientes.length - 1 && clientes[i].getEmail() != email) {
             i++;
         }
-        if ()
-            return cliente;
+        if (clientes[i].getEmail() == email) cliente = clientes[i];
+        return cliente;
     }
 
     /**
