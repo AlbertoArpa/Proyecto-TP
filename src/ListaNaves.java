@@ -93,7 +93,7 @@ public class ListaNaves {
         while (nave.getAlcance() < alcance) {
             nave = buscarNave(Utilidades.leerCadena(teclado, "\tAvión seleccionado con alcance insuficiente.\n" + mensaje));
         }
-            return nave;
+        return nave;
     }
 
 

@@ -3,7 +3,7 @@
  *
  * @author
  * @author
- * @version     1.0
+ * @version 1.0
  */
 public class PuertoEspacial {
 
@@ -32,15 +32,19 @@ public class PuertoEspacial {
         this.polar = polar;
         this.numMuelles = numMuelles;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public String getCodigo() {
         return codigo;
     }
+
     public double getRadio() {
         return radio;
     }
+
     public double getAzimut() {
         return azimut;
     }
@@ -48,6 +52,7 @@ public class PuertoEspacial {
     public double getPolar() {
         return polar;
     }
+
     public int getMuelles() {
         return numMuelles;
     }
@@ -55,6 +60,7 @@ public class PuertoEspacial {
     /**
      * TODO: Método para calcular la distancia entre el puerto espacial que recibe el mensaje y el puerto
      *  espacial "destino" siguiendo las ecuaciones del enunciado (Las formulas se encuentran en el enunciado)
+     *
      * @param destino
      * @return
      */
@@ -73,6 +79,7 @@ public class PuertoEspacial {
 
     /**
      * TODO: Método que crea un String con los datos de un puerto espacial con el siguiente formato:
+     *
      * @return ejemplo -> "Gaia Galactic Terminal(GGT), en (1.0 90.0 0.0), con 8 muelles" (Radio, Azimut, Polar)
      */
     public String toString() {
@@ -81,6 +88,7 @@ public class PuertoEspacial {
 
     /**
      * TODO: Método que crea un String con los datos de un aeropuerto con el siguiente formato:
+     *
      * @return ejemplo -> "Gaia Galactic Terminal (GGT)"
      */
     public String toStringSimple() {

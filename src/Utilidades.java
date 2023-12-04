@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 /**
  * Description of the class
  *
@@ -114,7 +115,7 @@ public class Utilidades {
 
             if (Fecha.comprobarFecha(dia, mes, anio)) {
                 correcto = false;
-                fecha = new Fecha(dia,mes,anio);
+                fecha = new Fecha(dia, mes, anio);
             } else {
                 System.out.println("Fecha introducida incorrecta.");
             }

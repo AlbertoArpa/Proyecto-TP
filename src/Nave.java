@@ -3,7 +3,7 @@
  *
  * @author
  * @author
- * @version     1.0
+ * @version 1.0
  */
 public class Nave {
     private String marca;
@@ -32,21 +32,27 @@ public class Nave {
         this.filas = filas;
         this.alcance = alcance;
     }
+
     public String getMarca() {
         return marca;
     }
+
     public String getModelo() {
         return modelo;
     }
+
     public String getMatricula() {
         return matricula;
     }
+
     public int getColumnas() {
         return columnas;
     }
+
     public int getFilas() {
         return filas;
     }
+
     public double getAlcance() {
         return alcance;
     }
@@ -54,6 +60,7 @@ public class Nave {
 
     /**
      * TODO: Crea un String con los datos de una nave con el siguiente formato:
+     *
      * @return ejemplo del formato -> "Planet Express One (EP-245732X): 40 contenedores, hasta 1.57 UA"
      */
     public String toString() {
@@ -63,6 +70,7 @@ public class Nave {
 
     /**
      * TODO: Crea un String con los datos de una nave con el siguiente formato:
+     *
      * @return ejemplo del formato -> "Planet Express One (EP-245732X)"
      */
     public String toStringSimple() {

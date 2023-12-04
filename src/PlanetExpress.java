@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -29,10 +31,13 @@ public class PlanetExpress {
      * @param maxEnviosPorCliente  Máximo número de envíos por cliente.
      */
     public PlanetExpress(int maxPuertosEspaciales, int maxNaves, int maxPortes, int maxClientes, int maxEnviosPorCliente) {
-
-
+        this.maxPuertosEspaciales = maxPuertosEspaciales;
+        this.maxNaves = maxNaves;
+        this.maxPortes = maxPortes;
+        this.maxClientes = maxClientes;
+        this.maxEnviosPorCliente = maxEnviosPorCliente;
+        cargarDatos();
     }
-
 
     /**
      * TODO: Metodo para leer los datos de los ficheros específicados en el enunciado y los agrega a
@@ -45,10 +50,12 @@ public class PlanetExpress {
      * @param ficheroEnvios
      */
     public void cargarDatos(String ficheroPuertos, String ficheroNaves, String ficheroPortes, String ficheroClientes, String ficheroEnvios) {
-
-
+        this.listaPuertosEspaciales = ListaPuertosEspaciales.leerPuertosEspacialesCsv(ficheroPuertos, maxPuertosEspaciales);
+        this.listaNaves = ListaNaves.leerNavesCsv(ficheroNaves, maxNaves);
+        this.listaPortes = ListaPortes.leerPortesCsv(ficheroPortes, maxPortes, listaPuertosEspaciales, listaNaves);
+        this.listaClientes = ListaClientes.leerClientesCsv(ficheroClientes, maxClientes, maxEnviosPorCliente);
+        ListaEnvios.leerEnviosCsv(ficheroEnvios, listaPortes, listaClientes);
     }
-
 
     /**
      * TODO: Metodo para almacenar los datos de PlanetExpress en los ficheros .csv especificados
@@ -61,8 +68,22 @@ public class PlanetExpress {
      * @param ficheroEnvios
      */
     public void guardarDatos(String ficheroPuertos, String ficheroNaves, String ficheroPortes, String ficheroClientes, String ficheroEnvios) {
-
-
+        boolean correcto = true;
+        listaPuertosEspaciales.escribirPuertosEspacialesCsv(ficheroPuertos);
+        listaNaves.escribirNavesCsv(ficheroNaves);
+        listaPortes.escribirPortesCsv(ficheroNaves);
+        listaClientes.escribirClientesCsv(ficheroClientes);
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(ficheroEnvios);
+            for (int i = 0; i < listaPortes.getOcupacion(); i++) {
+                listaPortes.getPorte(i).aniadirPorteCsv(ficheroPortes);
+            }
+        } catch (IOException e) {
+            System.out.println("Error de escritura en fichero Envios.");
+        } finally {
+            out.close();
+        }
     }
 
     public boolean maxPortesAlcanzado() {
@@ -91,10 +112,19 @@ public class PlanetExpress {
      * @return
      */
     public ListaPortes buscarPorte(Scanner teclado) {
+        PuertoEspacial puertoEspacialOrigen = listaPuertosEspaciales.seleccionarPuertoEspacial(teclado, "Ingrese código de Puerto Origen:");
+        PuertoEspacial puertoEspacialDestino = listaPuertosEspaciales.seleccionarPuertoEspacial(teclado, "Ingrese código de Puerto Destino:");
+        Fecha fecha = Utilidades.leerFecha(teclado, "Fecha de Salida:");
 
-
-        return listaPortes.buscarPortes(codigoOrigen, codigoDestino, fecha);
+        return listaPortes.buscarPortes(puertoEspacialOrigen, puertoEspacialDestino, fecha);
     }
+
+/*    public ListaVuelos buscarVuelo(Scanner teclado) {
+        Aeropuerto aeropuertoOrigen = aeropuertos.seleccionarAeropuerto(teclado, "Ingrese código de Aeropuerto Origen:");
+        Aeropuerto aeropuertoDestino = aeropuertos.seleccionarAeropuerto(teclado, "Ingrese código de Aeropuerto Destino:");
+        Fecha fecha = Utilidades.leerFecha(teclado, "Fecha de Salida:");
+        return vuelos.buscarVuelos(aeropuertoOrigen.getCodigo(), aeropuertoDestino.getCodigo(), fecha);
+    }*/
 
 
     /**
@@ -107,9 +137,90 @@ public class PlanetExpress {
      * @param porte
      */
     public void contratarEnvio(Scanner teclado, Random rand, Porte porte) {
-        if (porte != null) {
+        char letra;
+        if (listaClientes.estaLlena()) {
+            Cliente cliente = listaClientes.seleccionarCliente(teclado, "Ingrese DNI del cliente:");
+            if (cliente.billetes.estaLlena()) { //todo: pendiente
+                System.out.println("El Cliente seleccionado no puede adquirir más billetes.");
+            } else {
+                Billete billete = Billete.altaBillete(teclado, rand, vuelo, cliente);
+                cliente.billetes.insertarBillete(billete);
+            }
+        }
+        if (listaClientes.getOcupacion() == 0) {
+            Cliente cliente = Cliente.altaCliente(teclado, listaClientes, maxEnviosPorCliente);
+            Billete billete = Billete.altaBillete(teclado, rand, vuelo, cliente);
+            cliente.billetes.insertarBillete(billete);
+        }
+        if (porte.numHuecosLibres() > 0) {
+            boolean repite = true;
+            do {
+                letra = Utilidades.leerLetra(teclado, "¿Comprar billete para un nuevo pasajero (n), o para uno ya existente (e)?", 'e', 'n');
+                if (letra != 'n' && letra != 'e') {
+                    System.out.println("El valor de entrada debe ser 'n' o 'e'");
+                } else {
+                    repite = false;
+                }
+            } while (repite);
+            if (letra == 'e') {
+                Cliente cliente = listaClientes.seleccionarCliente(teclado, "Ingrese DNI del pasajero:");
+                if (cliente.billetes.estaLlena()) {
+                    System.out.println("El Pasajero seleccionado no puede adquirir más billetes.");
+                } else {
+                    Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
+                    cliente.billetes.insertarBillete(billete);
+                }
+            } else {
+                Cliente cliente = Cliente.altaCliente(teclado, listaClientes, maxEnviosPorCliente);
+                Billete billete = Billete.altaBillete(teclado, rand, porte, cliente);
+                cliente.billetes.insertarBillete(billete);
+            }
+        } else {
+            System.out.println("El vuelo " + vuelo.getID() + " está lleno, no se pueden comprar más billetes");
+        }
+    }
 
-
+    public void comprarBillete(Scanner teclado, Random rand, Vuelo vuelo) {
+        char letra;
+        if (pasajeros.estaLlena()) {
+            Pasajero pasajero = pasajeros.seleccionarPasajero(teclado, "Ingrese DNI del pasajero:");
+            if (pasajero.billetes.estaLlena()) {
+                System.out.println("El Pasajero seleccionado no puede adquirir más billetes.");
+            } else {
+                Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
+                pasajero.billetes.insertarBillete(billete);
+            }
+        }
+        if (pasajeros.getOcupacion() == 0) {
+            Pasajero pasajero = Pasajero.altaPasajero(teclado, pasajeros, maxBilletesPasajero);
+            Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
+            pasajero.billetes.insertarBillete(billete);
+        }
+        if (vuelo.numAsientosLibres() > 0) {
+            boolean repite = true;
+            do {
+                letra = Utilidades.leerLetra(teclado, "¿Comprar billete para un nuevo pasajero (n), o para uno ya existente (e)?", 'e', 'n');
+                if (letra != 'n' && letra != 'e') {
+                    System.out.println("El valor de entrada debe ser 'n' o 'e'");
+                } else {
+                    repite = false;
+                }
+            } while (repite);
+            if (letra == 'e') {
+                Pasajero pasajero = pasajeros.seleccionarPasajero(teclado, "Ingrese DNI del pasajero:");
+                if (pasajero.billetes.estaLlena()) {
+                    System.out.println("El Pasajero seleccionado no puede adquirir más billetes.");
+                } else {
+                    Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
+                    pasajero.billetes.insertarBillete(billete);
+                }
+            } else {
+                Pasajero pasajero = Pasajero.altaPasajero(teclado, pasajeros, maxBilletesPasajero);
+                Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
+                pasajero.billetes.insertarBillete(billete);
+            }
+        } else {
+            System.out.println("El vuelo " + vuelo.getID() + " está lleno, no se pueden comprar más billetes");
         }
     }
 
@@ -122,8 +233,14 @@ public class PlanetExpress {
      * @return opción seleccionada
      */
     public static int menu(Scanner teclado) {
-        System.out.println("1. Alta de Porte\n2. Alta de Cliente\n3. Buscar Porte\n4. Mostrar envíos de un cliente\n5. Generar lista de envíos\n0. Salir");
-        return teclado.nextInt();
+        System.out.println("1. Alta de Porte");
+        System.out.println("2. Alta de Cliente");
+        System.out.println("3. Buscar Porte");
+        System.out.println("4. Mostrar envíos de un cliente");
+        System.out.println("5. Generar lista de envíos");
+        System.out.println("0. Salir");
+        int opcion = Utilidades.leerNumero(teclado, "Seleccione opción:", 0, 5);
+        return opcion;
     }
 
     /**
@@ -146,38 +263,63 @@ public class PlanetExpress {
      *             y concluirá la ejecución del mismo: `Número de argumentos incorrecto`.
      */
     public static void main(String[] args) {
-        int opcion;
         Scanner teclado = new Scanner(System.in);
-        if (args.length != 10) {
-            System.out.println("Número de argumentos incorrecto");
-            return;
-        }
+        Random random = new Random();
+        PlanetExpress planetExpress = new PlanetExpress(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));
+        int opcion;
         do {
             opcion = menu(teclado);
             switch (opcion) {
-                case 1:     // TODO: Alta de Porte
-                    System.out.println("Ingrese código de puerto Origen: ");
+                case 1: // TODO: Alta de Porte
+                    if (planetExpress.listaPortes.estaLlena()) {
+                        System.out.println("No se pueden dar de alta más portes.");
+                    } else {
+                        Porte porte = Porte.altaPorte(teclado, random, planetExpress.listaPuertosEspaciales, planetExpress.listaNaves, planetExpress.listaPortes);
+                        planetExpress.listaPortes.insertarPorte(porte);
+                    }
                     break;
-                case 2:     // TODO: Alta de Cliente
-
+                case 2: // TODO: Alta de Cliente
+                    if (planetExpress.listaClientes.estaLlena()) {
+                        System.out.println("No se pueden dar de alta más clientes.");
+                    } else {
+                        Cliente cliente = Cliente.altaCliente(teclado, planetExpress.listaClientes, planetExpress.maxEnviosPorCliente);
+                        planetExpress.listaClientes.insertarCliente(cliente);
+                    }
+                    break;
+                case 3: // TODO: Buscar Porte
+                    ListaPortes imprimir = planetExpress.buscarPorte(teclado);
+                    if (imprimir.getOcupacion() == 0) {
+                        System.out.println("No se ha encontrado ningún porte");
+                    } else {
+                        imprimir.listarPortes();
+                        Porte porte1 = planetExpress.listaPortes.seleccionarPorte(teclado, "Ingrese ID de porte para comprar envío o escriba CANCELAR:", "cancelar");
+                        if (porte1 != null) {
+                            planetExpress.contratarEnvio(teclado, random, porte1);
+                        } else {
+                            System.out.println("ID de porte no encontrado.");
+                        }
+                    }
+                    break;
+                case 4: //todo: pendiente. // TODO: Listado de envíos de un cliente
+                    boolean repetir = true;
+                    Cliente cliente1 = planetExpress.listaClientes.seleccionarCliente(teclado, "Ingrese DNI del cliente:");
+                    if (cliente1.list) {
+                    }
 
                     break;
-                case 3:     // TODO: Buscar Porte
 
-
+                case 5: // TODO: Lista de envíos de un porte
+                    Porte porte1 = planetExpress.listaPortes.seleccionarPorte(teclado, "Ingrese ID del porte:", "cancelar");
+                    System.out.println("Introduzca la ruta donde generar la lista de clientes:");
+                    String ruta = teclado.nextLine();
+                    porte1.generarListaEnvios(ruta);
+                    System.out.println("Lista de clientes del Porte" + porte1.getID() + " generada en " + ruta);
                     break;
-                case 4:     // TODO: Listado de envíos de un cliente
 
-
-                    break;
-                case 5:     // TODO: Lista de envíos de un porte
-
-
+                case 0:
                     break;
             }
         } while (opcion != 0);
-
-
+        planetExpress.guardarDatos(args[5], args[6], args[7], args[8], args[9]); //todo: revisar aquí.
     }
 }
-//.
