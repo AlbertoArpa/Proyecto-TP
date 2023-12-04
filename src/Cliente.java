@@ -61,7 +61,7 @@ public class Cliente {
 
     // TODO: Añade un envío al cliente.
     public boolean aniadirEnvio(Envio envio) {
-
+        return listaEnvios.insertarEnvio(envio);
     }
 
     public Envio buscarEnvio(String localizador) {
@@ -94,8 +94,11 @@ public class Cliente {
      * @return Cliente
      */
     public static Cliente altaCliente(Scanner teclado, ListaClientes clientes, int maxEnvios) {
-
-
+        String nombre = Utilidades.leerCadena(teclado, "Nombre:");
+        String apellidos = Utilidades.leerCadena(teclado, "Apellidos:");
+        String email = Utilidades.leerCadena(teclado, "Email: ");
+        while (!correctoEmail(email)) email = Utilidades.leerCadena(teclado, "\tEmail incorrecto\nEmail: ");
+        while (clientes.buscarClienteEmail(email) != null) email = Utilidades.leerCadena(teclado, "\tEl email ya está registrado\nEmail: ");
         return new Cliente(nombre, apellidos, email, maxEnvios);
     }
 
