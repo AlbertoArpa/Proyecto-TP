@@ -52,7 +52,7 @@ public class ListaClientes {
     public Cliente buscarClienteEmail(String email) {
         Cliente cliente = null;
         int i = 0;
-        while (i < clientes.length - 1 && clientes[i].getEmail() != email) {
+        while (i < getOcupacion() - 1 && clientes[i].getEmail() != email) {
             i++;
         }
         if (clientes[i].getEmail() == email) cliente = clientes[i];
@@ -69,9 +69,8 @@ public class ListaClientes {
      * @return
      */
     public Cliente seleccionarCliente(Scanner teclado, String mensaje) {
-        Cliente cliente = null;
-
-
+        Cliente cliente = buscarClienteEmail(Utilidades.leerCadena(teclado, mensaje));
+        while (cliente == null) cliente = buscarClienteEmail(Utilidades.leerCadena(teclado, "Email no encontrado.\n"));
         return cliente;
     }
 
@@ -83,11 +82,13 @@ public class ListaClientes {
      * @return
      */
     public boolean escribirClientesCsv(String fichero) {
-
-
+        boolean result = false;
         try {
-
-
+        PrintWriter pw = new PrintWriter(fichero);
+        for (int i = 0; i < getOcupacion(); i++) {
+            pw.println(clientes[i].getNombre() + ";" + clientes[i].getApellidos() + ";" + clientes[i].getEmail());
+        }
+        pw.close();
         } catch (FileNotFoundException e) {
             return false;
         } finally {
