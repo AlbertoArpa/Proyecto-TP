@@ -63,7 +63,7 @@ public class ListaNaves {
     public Nave buscarNave(String matricula) {
         Nave result = null;
         int i = 0;
-        while (i < naves.length && naves[i].getMatricula() != matricula) {
+        while (i < getOcupacion() - 1 && naves[i].getMatricula() != matricula) {
             i++;
         }
         if (naves[i].getMatricula() == matricula) result = naves[i];
@@ -90,9 +90,10 @@ public class ListaNaves {
      */
     public Nave seleccionarNave(Scanner teclado, String mensaje, double alcance) {
         Nave nave = buscarNave(Utilidades.leerCadena(teclado, mensaje));
-        while (nave.getAlcance() < alcance) {
+        while (nave == null)
+            nave = buscarNave(Utilidades.leerCadena(teclado, "\tMatrícula de avión no encontrada.\n" + mensaje));
+        while (nave.getAlcance() < alcance)
             nave = buscarNave(Utilidades.leerCadena(teclado, "\tAvión seleccionado con alcance insuficiente.\n" + mensaje));
-        }
         return nave;
     }
 

@@ -62,11 +62,10 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String localizador) {
+        Envio result = null;
         int i = 0;
-        while (i < envios.length && localizador != envios[i].getLocalizador()) i++;
-        Envio result;
+        while (i < getOcupacion() - 1 && localizador != envios[i].getLocalizador()) i++;
         if (envios[i].getLocalizador() == localizador) result = envios[i];
-        else result = null;
         return result;
     }
 
@@ -81,7 +80,7 @@ public class ListaEnvios {
     public Envio buscarEnvio(String idPorte, int fila, int columna) {
         Envio result = null;
         int i = 0;
-        while (i < envios.length && envios[i].getPorte().getID() != idPorte && envios[i].getFila() != fila && envios[i].getColumna() != columna)
+        while (i < getOcupacion() - 1 && envios[i].getPorte().getID() != idPorte && envios[i].getFila() != fila && envios[i].getColumna() != columna)
             i++;
         if (envios[i].getPorte().getID() == idPorte && envios[i].getFila() == fila && envios[i].getColumna() == columna)
             result = envios[i];
@@ -127,13 +126,8 @@ public class ListaEnvios {
      * @return
      */
     public Envio seleccionarEnvio(Scanner teclado, String mensaje) {
-        Envio envio = null;
-        int i = 0;
-        String localizador = Utilidades.leerCadena(teclado, mensaje);
-        while (i < envios.length - 1 && envios[i].getLocalizador() != localizador) {
-            i++;
-        }
-        if (envios[i].getLocalizador() == localizador) envio = envios[i];
+        Envio envio = buscarEnvio(Utilidades.leerCadena(teclado, "\tLocalizador incorrecto\n" + mensaje));
+        while (envio == null) envio = buscarEnvio(Utilidades.leerCadena(teclado, mensaje));
         return envio;
     }
 
@@ -145,7 +139,6 @@ public class ListaEnvios {
      * @return
      */
     public boolean aniadirEnviosCsv(String fichero) {
-
         try {
             PrintWriter pw = new PrintWriter(fichero);
             for (int i = 0; i < envios.length; i++) {

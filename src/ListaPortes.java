@@ -62,9 +62,11 @@ public class ListaPortes {
      * @return el objeto Porte que encontramos o null si no existe
      */
     public Porte buscarPorte(String id) {
+        Porte result = null;
         int i = 0;
-        while (i < portes.length && portes[i].getID() != id) i++;
-        return portes[i];
+        while (i < getOcupacion() - 1 && portes[i].getID() != id) i++;
+        if (portes[i].getID() == id) result = portes[i];
+        return result;
     }
 
     /**
@@ -79,7 +81,7 @@ public class ListaPortes {
     public ListaPortes buscarPortes(String codigoOrigen, String codigoDestino, Fecha fecha) {
         ListaPortes listaPortes = new ListaPortes(portes.length);
         int j = 0;
-        for (int i = 0; i < portes.length; i++) {
+        for (int i = 0; i < getOcupacion(); i++) {
             if (portes[i].getOrigen().getCodigo() == codigoOrigen && portes[i].getDestino().getCodigo() == codigoDestino && portes[i].getSalida() == fecha) {
                 listaPortes.portes[j] = portes[i];
                 j++;
@@ -116,7 +118,7 @@ public class ListaPortes {
         if (cadena != cancelar) porte = buscarPorte(cadena);
         while (cadena != cancelar && porte == null) {
             cadena = Utilidades.leerCadena(teclado, "\tPorte no encontrado.\n" + mensaje);
-            if (cadena != cancelar) porte = buscarPorte(cadena);
+            porte = buscarPorte(cadena);
         }
         return porte;
     }

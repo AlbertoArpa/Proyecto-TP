@@ -64,7 +64,7 @@ public class ListaPuertosEspaciales {
     public PuertoEspacial buscarPuertoEspacial(String codigo) {
         PuertoEspacial result = null;
         int i = 0;
-        while (i < lista.length && lista[i].getCodigo() != codigo) i++;
+        while (i < getOcupacion() - 1 && lista[i].getCodigo() != codigo) i++;
         if (lista[i].getCodigo() == codigo) result = lista[i];
         return result;
     }
