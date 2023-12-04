@@ -140,17 +140,17 @@ public class PlanetExpress {
         char letra;
         if (listaClientes.estaLlena()) {
             Cliente cliente = listaClientes.seleccionarCliente(teclado, "Ingrese DNI del cliente:");
-            if (cliente.billetes.estaLlena()) { //todo: pendiente
+            if (cliente.getListaEnvios().estaLlena()) { //todo: pendiente
                 System.out.println("El Cliente seleccionado no puede adquirir más billetes.");
             } else {
-                Billete billete = Billete.altaBillete(teclado, rand, vuelo, cliente);
-                cliente.billetes.insertarBillete(billete);
+                Envio envio = Envio.altaEnvio(teclado, rand, porte, cliente);
+                cliente.getListaEnvios().insertarEnvio(envio);
             }
         }
         if (listaClientes.getOcupacion() == 0) {
             Cliente cliente = Cliente.altaCliente(teclado, listaClientes, maxEnviosPorCliente);
-            Billete billete = Billete.altaBillete(teclado, rand, vuelo, cliente);
-            cliente.billetes.insertarBillete(billete);
+            Envio envio = Envio.altaEnvio(teclado, rand, porte, cliente);
+            cliente.getListaEnvios().insertarEnvio(envio);
         }
         if (porte.numHuecosLibres() > 0) {
             boolean repite = true;
@@ -164,66 +164,21 @@ public class PlanetExpress {
             } while (repite);
             if (letra == 'e') {
                 Cliente cliente = listaClientes.seleccionarCliente(teclado, "Ingrese DNI del pasajero:");
-                if (cliente.billetes.estaLlena()) {
+                if (cliente.getListaEnvios().estaLlena()) {
                     System.out.println("El Pasajero seleccionado no puede adquirir más billetes.");
                 } else {
-                    Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
-                    cliente.billetes.insertarBillete(billete);
+                    Envio envio = Envio.altaEnvio(teclado, rand, porte, cliente);
+                    cliente.getListaEnvios().insertarEnvio(envio);
                 }
             } else {
                 Cliente cliente = Cliente.altaCliente(teclado, listaClientes, maxEnviosPorCliente);
-                Billete billete = Billete.altaBillete(teclado, rand, porte, cliente);
-                cliente.billetes.insertarBillete(billete);
+                Envio envio = Envio.altaEnvio(teclado, rand, porte, cliente);
+                cliente.getListaEnvios().insertarEnvio(envio);
             }
         } else {
-            System.out.println("El vuelo " + vuelo.getID() + " está lleno, no se pueden comprar más billetes");
+            System.out.println("El porte " + porte.getID() + " está lleno, no se pueden comprar más billetes");
         }
     }
-
-    public void comprarBillete(Scanner teclado, Random rand, Vuelo vuelo) {
-        char letra;
-        if (pasajeros.estaLlena()) {
-            Pasajero pasajero = pasajeros.seleccionarPasajero(teclado, "Ingrese DNI del pasajero:");
-            if (pasajero.billetes.estaLlena()) {
-                System.out.println("El Pasajero seleccionado no puede adquirir más billetes.");
-            } else {
-                Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
-                pasajero.billetes.insertarBillete(billete);
-            }
-        }
-        if (pasajeros.getOcupacion() == 0) {
-            Pasajero pasajero = Pasajero.altaPasajero(teclado, pasajeros, maxBilletesPasajero);
-            Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
-            pasajero.billetes.insertarBillete(billete);
-        }
-        if (vuelo.numAsientosLibres() > 0) {
-            boolean repite = true;
-            do {
-                letra = Utilidades.leerLetra(teclado, "¿Comprar billete para un nuevo pasajero (n), o para uno ya existente (e)?", 'e', 'n');
-                if (letra != 'n' && letra != 'e') {
-                    System.out.println("El valor de entrada debe ser 'n' o 'e'");
-                } else {
-                    repite = false;
-                }
-            } while (repite);
-            if (letra == 'e') {
-                Pasajero pasajero = pasajeros.seleccionarPasajero(teclado, "Ingrese DNI del pasajero:");
-                if (pasajero.billetes.estaLlena()) {
-                    System.out.println("El Pasajero seleccionado no puede adquirir más billetes.");
-                } else {
-                    Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
-                    pasajero.billetes.insertarBillete(billete);
-                }
-            } else {
-                Pasajero pasajero = Pasajero.altaPasajero(teclado, pasajeros, maxBilletesPasajero);
-                Billete billete = Billete.altaBillete(teclado, rand, vuelo, pasajero);
-                pasajero.billetes.insertarBillete(billete);
-            }
-        } else {
-            System.out.println("El vuelo " + vuelo.getID() + " está lleno, no se pueden comprar más billetes");
-        }
-    }
-
 
     /**
      * TODO Metodo statico con la interfaz del menú de entrada a la App.
@@ -300,10 +255,40 @@ public class PlanetExpress {
                         }
                     }
                     break;
-                case 4: //todo: pendiente. // TODO: Listado de envíos de un cliente
+                case 4:  // TODO: Listado de envíos de un cliente
                     boolean repetir = true;
                     Cliente cliente1 = planetExpress.listaClientes.seleccionarCliente(teclado, "Ingrese DNI del cliente:");
-                    if (cliente1.list) {
+                    if (cliente1.getListaEnvios().getOcupacion() == 0) {
+                        System.out.println("El pasajero seleccionado no ha adquirido ningún billete.");
+                    } else {
+                        cliente1.listarEnvios();
+                        Envio envio = cliente1.seleccionarEnvio(teclado, "Ingrese localizador del envio:");
+                        char letra;
+
+                        do {
+                            letra = Utilidades.leerLetra(teclado, "¿Generar factura del billete (f), cancelarlo (c), o volver al menu (m)?", 'a', 'z');
+                            switch (letra) {
+                                case 'c':
+                                    String localizador = envio.getLocalizador();
+                                    envio.cancelar();
+                                    System.out.println("Envio " + localizador + " cancelado.");
+                                    repetir = false;
+                                    break;
+                                case 'f':
+                                    System.out.print("Introduzca la ruta donde generar la factura:");
+                                    String fichero = teclado.nextLine();
+                                    envio.generarFactura(fichero);
+                                    System.out.println("Factura de Envio " + envio.getLocalizador() + " generada en " + fichero);
+                                    repetir = false;
+                                    break;
+                                case 'm':
+                                    menu(teclado);
+                                    repetir = false;
+                                    break;
+                                default:
+                                    System.out.println("El valor de entrada debe ser 'f', 'c' o 'm'");
+                            }
+                        } while (repetir);
                     }
 
                     break;

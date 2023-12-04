@@ -98,7 +98,8 @@ public class Cliente {
         String apellidos = Utilidades.leerCadena(teclado, "Apellidos:");
         String email = Utilidades.leerCadena(teclado, "Email: ");
         while (!correctoEmail(email)) email = Utilidades.leerCadena(teclado, "\tEmail incorrecto\nEmail: ");
-        while (clientes.buscarClienteEmail(email) != null) email = Utilidades.leerCadena(teclado, "\tEl email ya está registrado\nEmail: ");
+        while (clientes.buscarClienteEmail(email) != null)
+            email = Utilidades.leerCadena(teclado, "\tEl email ya está registrado\nEmail: ");
         return new Cliente(nombre, apellidos, email, maxEnvios);
     }
 
