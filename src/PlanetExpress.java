@@ -117,14 +117,6 @@ public class PlanetExpress {
         return listaPortes.buscarPortes(puertoEspacialOrigen.getCodigo(), puertoEspacialDestino.getCodigo(), fecha);
     }
 
-/*    public ListaVuelos buscarVuelo(Scanner teclado) {
-        Aeropuerto aeropuertoOrigen = aeropuertos.seleccionarAeropuerto(teclado, "Ingrese código de Aeropuerto Origen:");
-        Aeropuerto aeropuertoDestino = aeropuertos.seleccionarAeropuerto(teclado, "Ingrese código de Aeropuerto Destino:");
-        Fecha fecha = Utilidades.leerFecha(teclado, "Fecha de Salida:");
-        return vuelos.buscarVuelos(aeropuertoOrigen.getCodigo(), aeropuertoDestino.getCodigo(), fecha);
-    }*/
-
-
     /**
      * TODO: Metodo para contratar un envio tal y como se indica en el enunciado de la práctica. Se contrata un envio para un porte
      *  especificado, pidiendo por teclado los datos necesarios al usuario en el orden y con los textos (tomar como referencia los

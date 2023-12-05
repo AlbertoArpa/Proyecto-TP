@@ -1,5 +1,4 @@
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 import static java.lang.Double.valueOf;
@@ -120,31 +119,36 @@ public class ListaPuertosEspaciales {
      * @return
      */
     public static ListaPuertosEspaciales leerPuertosEspacialesCsv(String fichero, int capacidad) {
+        BufferedReader in = null;
         ListaPuertosEspaciales listaPuertosEspaciales = new ListaPuertosEspaciales(capacidad);
         try {
-            Scanner sc = new Scanner(new FileReader(fichero));
-            for (int i = 0; i < capacidad - 1; i++) {
-                String linea, nombre = "", codigo = "";
-                double radio, azimut, polar;
-                int numMuelles;
-                linea = sc.nextLine();
-                int j = 0;
-                while (linea.charAt(j) != ';') {
-                    nombre += linea.charAt(j);
-                    j++;
-                }
-                j++;
-                while (linea.charAt(j) != ';') {
-                    codigo += linea.charAt(j);
-                    j++;
-                }
-                radio =
-                        listaPuertosEspaciales.insertarPuertoEspacial(new PuertoEspacial(nombre, codigo, radio, azimut, polar, numMuelles));
-            }
-        } catch (Exception e) {
-            return null;
-        } finally {
+            in = new BufferedReader(new FileReader(fichero));
+            String linea = in.readLine();
+            while (linea != null) {
+                String[] datos = linea.split(";");
+                String nombre = datos[0];
+                String codigo = datos[1];
+                double radio = Double.parseDouble(datos[2]);
+                double azimut = Double.parseDouble(datos[3]);
+                double polar = Double.parseDouble(datos[4]);
+                int numMuelles = Integer.parseInt(datos[5]);
 
+                PuertoEspacial puertoEspacial = new PuertoEspacial(nombre, codigo, radio, azimut, polar, numMuelles);
+                listaPuertosEspaciales.insertarPuertoEspacial(puertoEspacial);
+                linea = in.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Fichero Puertos Espaciales no encontrado.");
+        } catch (IOException ex) {
+            System.out.println("Error de lectura de fichero Puertos Espaciales.");
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                System.out.println("Error de cierre de fichero Puertos Espaciales.");
+            }
         }
         return listaPuertosEspaciales;
     }

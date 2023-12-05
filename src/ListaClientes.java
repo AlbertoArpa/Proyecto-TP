@@ -94,7 +94,6 @@ public class ListaClientes {
         return cliente;
     }
 
-
     /**
      * TODO: Método para guardar la lista de clientes en un fichero .csv, sobreescribiendo la información del mismo
      *  fichero
@@ -138,7 +137,7 @@ public class ListaClientes {
             String linea = in.readLine();
             while (linea != null) {
                 String[] datos = linea.split(";");
-                Cliente cliente = new Cliente(datos[0], datos[1], Long.parseLong(datos[2]), datos[3].charAt(0), datos[4], maxEnviosPorCliente);
+                Cliente cliente = new Cliente(datos[0], datos[1], datos[2], Integer.parseInt(datos[3])); //todo: pendiente
                 listaClientes.insertarCliente(cliente);
                 linea = in.readLine();
             }

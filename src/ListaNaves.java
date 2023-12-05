@@ -89,14 +89,19 @@ public class ListaNaves {
      * @return
      */
     public Nave seleccionarNave(Scanner teclado, String mensaje, double alcance) {
-        Nave nave = buscarNave(Utilidades.leerCadena(teclado, mensaje));
-        while (nave == null)
-            nave = buscarNave(Utilidades.leerCadena(teclado, "\tMatrícula de avión no encontrada.\n" + mensaje));
-        while (nave.getAlcance() < alcance)
-            nave = buscarNave(Utilidades.leerCadena(teclado, "\tAvión seleccionado con alcance insuficiente.\n" + mensaje));
+        Nave nave = null;
+        do {
+            System.out.print(mensaje);
+            String matricula = teclado.nextLine();
+            nave = buscarNave(matricula);
+            if (nave == null) {
+                System.out.println("Matrícula de nave no encontrada.");
+            } else if (nave.getAlcance() < alcance) {
+                System.out.printf("Nave seleccionada con alcance insuficiente (menor que %.3f km).\n", alcance);
+            }
+        } while (nave == null || alcance > nave.getAlcance());
         return nave;
     }
-
 
     /**
      * TODO: Genera un fichero CSV con la lista de Naves, SOBREESCRIBIÉNDOLO
@@ -105,21 +110,23 @@ public class ListaNaves {
      * @return
      */
     public boolean escribirNavesCsv(String nombre) {
+        boolean escrito = true;
         PrintWriter pw = null;
         try {
             pw = new PrintWriter(nombre);
             for (int i = 0; i < getOcupacion(); i++) {
                 pw.println(naves[i].getMarca() + ";" + naves[i].getModelo() + ";" + naves[i].getMatricula() + ";" + naves[i].getFilas() + ";" + naves[i].getColumnas() + ";" + naves[i].getAlcance() + "E-5");
             }
-            pw.close();
-            return true;
+            escrito = true;
         } catch (Exception e) {
-            return false;
+            System.out.println("Error de escritura en fichero Naves.");
+            escrito = false;
         } finally {
-        if (pw != null) pw.close();
+            if (pw != null)
+                pw.close();
         }
+        return escrito;
     }
-
 
     /**
      * TODO: Genera una lista de naves a partir del fichero CSV, usando el argumento como capacidad máxima de la lista
