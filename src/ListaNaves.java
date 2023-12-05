@@ -105,8 +105,9 @@ public class ListaNaves {
      * @return
      */
     public boolean escribirNavesCsv(String nombre) {
+        PrintWriter pw = null;
         try {
-            PrintWriter pw = new PrintWriter(nombre);
+            pw = new PrintWriter(nombre);
             for (int i = 0; i < getOcupacion(); i++) {
                 pw.println(naves[i].getMarca() + ";" + naves[i].getModelo() + ";" + naves[i].getMatricula() + ";" + naves[i].getFilas() + ";" + naves[i].getColumnas() + ";" + naves[i].getAlcance() + "E-5");
             }
@@ -115,7 +116,7 @@ public class ListaNaves {
         } catch (Exception e) {
             return false;
         } finally {
-
+        if (pw != null) pw.close();
         }
     }
 
