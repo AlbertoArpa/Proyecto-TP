@@ -71,18 +71,16 @@ public class PlanetExpress {
         boolean correcto = true;
         listaPuertosEspaciales.escribirPuertosEspacialesCsv(ficheroPuertos);
         listaNaves.escribirNavesCsv(ficheroNaves);
-        listaPortes.escribirPortesCsv(ficheroNaves);
+        listaPortes.escribirPortesCsv(ficheroPortes);
         listaClientes.escribirClientesCsv(ficheroClientes);
-        PrintWriter out = null;
         try {
-            out = new PrintWriter(ficheroEnvios);
+            PrintWriter out = new PrintWriter(ficheroEnvios);
             for (int i = 0; i < listaPortes.getOcupacion(); i++) {
-                listaPortes.getPorte(i).aniadirPorteCsv(ficheroPortes);
+                listaPortes.getPorte(i).getListaEnvios().aniadirEnviosCsv(ficheroEnvios);
             }
+            out.close();
         } catch (IOException e) {
             System.out.println("Error de escritura en fichero Envios.");
-        } finally {
-            out.close();
         }
     }
 
@@ -116,7 +114,7 @@ public class PlanetExpress {
         PuertoEspacial puertoEspacialDestino = listaPuertosEspaciales.seleccionarPuertoEspacial(teclado, "Ingrese código de Puerto Destino:");
         Fecha fecha = Utilidades.leerFecha(teclado, "Fecha de Salida:");
 
-        return listaPortes.buscarPortes(puertoEspacialOrigen, puertoEspacialDestino, fecha);
+        return listaPortes.buscarPortes(puertoEspacialOrigen.getCodigo(), puertoEspacialDestino.getCodigo(), fecha);
     }
 
 /*    public ListaVuelos buscarVuelo(Scanner teclado) {

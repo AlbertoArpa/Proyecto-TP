@@ -231,7 +231,7 @@ public class Porte {
     public boolean generarListaEnvios(String fichero) {
         try {
             PrintWriter pw = new PrintWriter(fichero);
-            pw.print("--------------------------------------------------\n-------- Lista de envíos del porte " +
+            pw.println("--------------------------------------------------\n-------- Lista de envíos del porte " +
                     id + " --------\n--------------------------------------------------\nHueco\tCliente");
             for (int i = 0; i < huecos.length; i++) {
                 for (int j = 0; j < huecos[i].length; j++) {
