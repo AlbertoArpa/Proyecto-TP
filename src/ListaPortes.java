@@ -131,16 +131,18 @@ public class ListaPortes {
      * @return
      */
     public boolean escribirPortesCsv(String fichero) {
+        PrintWriter pw = null;
         try {
-            PrintWriter pw = new PrintWriter(fichero);
+            pw = new PrintWriter(fichero);
             for (int i = 0; i < getOcupacion(); i++) {
                 System.out.println(portes[i].getID() + ";" + portes[i].getNave().getMatricula() + ";" + portes[i].getOrigen().getCodigo() + ";" + portes[i].getMuelleOrigen() + ";" + portes[i].getSalida() +
                         ";" + portes[i].getDestino().getCodigo() + ";" + portes[i].getMuelleDestino() + ";" + portes[i].getLlegada() + ";" + portes[i].getPrecio());
             }
-            pw.close();
             return true;
         } catch (FileNotFoundException e) {
             return false;
+        } finally {
+            if (pw != null) pw.close();
         }
     }
 
@@ -154,7 +156,8 @@ public class ListaPortes {
      * @param naves
      * @return
      */
-    public static ListaPortes leerPortesCsv(String fichero, int capacidad, ListaPuertosEspaciales puertosEspaciales, ListaNaves naves) {
+    public static ListaPortes leerPortesCsv(String fichero, int capacidad, ListaPuertosEspaciales
+            puertosEspaciales, ListaNaves naves) {
         ListaPortes listaPortes = new ListaPortes(capacidad);
         try {
 
