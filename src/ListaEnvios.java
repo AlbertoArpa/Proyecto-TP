@@ -139,17 +139,18 @@ public class ListaEnvios {
      * @return
      */
     public boolean aniadirEnviosCsv(String fichero) {
+        PrintWriter pw = null;
         try {
-            PrintWriter pw = new PrintWriter(fichero);
-            for (int i = 0; i < getOcupacion; i++) {
+            pw = new PrintWriter(fichero);
+            for (int i = 0; i < getOcupacion(); i++) {
                 pw.append("\n" + envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio());
             }
-            pw.close();
             return true;
         } catch (Exception e) {
+            System.out.println("Error de escritura en fichero Envíos.");
             return false;
         } finally {
-
+            if (pw != null) pw.close();
         }
     }
 
@@ -160,7 +161,7 @@ public class ListaEnvios {
      * @param portes
      * @param clientes
      */
-    public static void leerEnviosCsv(String ficheroEnvios, ListaPortes portes, ListaClientes clientes) {
+/*    public static void leerEnviosCsv(String ficheroEnvios, ListaPortes portes, ListaClientes clientes) {
         Scanner sc = null;
         try {
 
@@ -169,5 +170,5 @@ public class ListaEnvios {
         } finally {
 
         }
-    }
+    }*/
 }
