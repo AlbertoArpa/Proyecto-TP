@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -161,14 +158,29 @@ public class ListaEnvios {
      * @param portes
      * @param clientes
      */
-/*    public static void leerEnviosCsv(String ficheroEnvios, ListaPortes portes, ListaClientes clientes) {
-        Scanner sc = null;
+    public static void leerEnviosCsv(String ficheroEnvios, ListaPortes portes, ListaClientes clientes) {
+        BufferedReader out = null;
         try {
-
-        } catch (FileNotFoundException e) {
-            System.out.println("No se ha encontrado el fichero de envíos");
+            out = new BufferedReader(new FileReader(ficheroEnvios));
+            String linea = out.readLine();
+            while (linea != null) {
+                String[] datos = linea.split(";");
+                Porte porte = portes.buscarPorte(datos[1]);
+                Cliente cliente = new Cliente(datos[0], porte, clientes, Envio.TIPO.valueOf(datos[3]), Integer.parseInt(datos[4]);
+                porte.ocuparHueco(envio);
+                cliente.aniadirEnvio(envio);
+                linea = out.readLine();
+            }
+        } catch (IOException ex) {
+            System.out.println("Error de lectura de fichero Envios.");
         } finally {
-
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException ex) {
+                System.out.println("Error de cierre de fichero Envios.");
+            }
         }
-    }*/
+    }
 }

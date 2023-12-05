@@ -1,4 +1,4 @@
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -129,14 +129,35 @@ public class ListaNaves {
      * @return
      */
     public static ListaNaves leerNavesCsv(String fichero, int capacidad) {
+        BufferedReader in = null;
         ListaNaves listaNaves = new ListaNaves(capacidad);
-        Scanner sc = null;
         try {
-
-        } catch (Exception e) {
-            return null;
+            in = new BufferedReader(new FileReader(fichero));
+            String linea = in.readLine();
+            while (linea != null) {
+                String[] datos = linea.split(";");
+                String marca = datos[0];
+                String modelo = datos[1];
+                String matricula = datos[2];
+                int filas = Integer.parseInt(datos[3]);
+                int columnas = Integer.parseInt(datos[4]);
+                double alcance = Double.parseDouble(datos[5]);
+                Nave nave = new Nave(marca, modelo, matricula, columnas, filas, alcance);
+                listaNaves.insertarNave(nave);
+                linea = in.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Fichero Naves no encontrado.");
+        } catch (IOException ex) {
+            System.out.println("Error de lectura de fichero Naves.");
         } finally {
-
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error de cierre de fichero Naves.");
+            }
         }
         return listaNaves;
     }
