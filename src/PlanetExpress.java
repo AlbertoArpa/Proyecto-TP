@@ -36,7 +36,7 @@ public class PlanetExpress {
         this.maxPortes = maxPortes;
         this.maxClientes = maxClientes;
         this.maxEnviosPorCliente = maxEnviosPorCliente;
-        cargarDatos();
+        cargarDatos("puertos.csv", "naves.csv", "portes.csv", "clientes.csv", "envios.csv");
     }
 
     /**
