@@ -63,10 +63,10 @@ public class ListaNaves {
     public Nave buscarNave(String matricula) {
         Nave result = null;
         int i = 0;
-        while (i < getOcupacion() - 1 && naves[i].getMatricula() != matricula) {
+        while (i < getOcupacion() - 1 && !naves[i].getMatricula().equals(matricula)) {
             i++;
         }
-        if (naves[i].getMatricula() == matricula) result = naves[i];
+        if (naves[i].getMatricula().equals(matricula)) result = naves[i];
         return result;
     }
 
