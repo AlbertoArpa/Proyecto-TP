@@ -81,7 +81,7 @@ public class ListaPortes {
         ListaPortes listaPortes = new ListaPortes(portes.length);
         int j = 0;
         for (int i = 0; i < getOcupacion(); i++) {
-            if (portes[i].getOrigen().getCodigo() == codigoOrigen && portes[i].getDestino().getCodigo() == codigoDestino && portes[i].getSalida() == fecha) {
+            if (portes[i].getOrigen().getCodigo().equals(codigoOrigen) && portes[i].getDestino().getCodigo().equals(codigoDestino) && ((portes[i].getSalida().anterior(fecha) || portes[i].getSalida().coincide(fecha)) && (fecha.anterior(portes[i].getLlegada()) || fecha.coincide(portes[i].getLlegada())))) {
                 listaPortes.portes[j] = portes[i];
                 j++;
             }
@@ -93,9 +93,9 @@ public class ListaPortes {
      * TODO: Muestra por pantalla los Portes siguiendo el formato de los ejemplos del enunciado
      */
     public void listarPortes() {
-        for (int i = 0; i < portes.length; i++)
-            System.out.println("Porte " + portes[i].getID() + " de " + portes[i].getOrigen().getNombre() + "(" + portes[i].getOrigen().getCodigo() + ") M" + " (" + portes[i].getSalida() +
-                    ") a " + portes[i].getDestino().getNombre() + "(" + portes[i].getDestino().getCodigo() + ") M" + portes[i].getLlegada() + ")");
+        for (int i = 0; i < getOcupacion(); i++)
+            System.out.println("\tPorte " + portes[i].getID() + " de " + portes[i].getOrigen().getNombre() + "(" + portes[i].getOrigen().getCodigo() + ") M" + portes[i].getMuelleOrigen() + " (" + portes[i].getSalida() +
+                    ") a " + portes[i].getDestino().getNombre() + "(" + portes[i].getDestino().getCodigo() + ") M" + portes[i].getMuelleDestino() + " (" + portes[i].getLlegada() + ")");
     }
 
 
@@ -114,8 +114,8 @@ public class ListaPortes {
         listarPortes();
         Porte porte = null;
         String cadena = Utilidades.leerCadena(teclado, mensaje);
-        if (cadena != cancelar) porte = buscarPorte(cadena);
-        while (cadena != cancelar && porte == null) {
+        if (cadena.equals(cancelar)) porte = buscarPorte(cadena);
+        while (cadena.equals(cancelar) && porte == null) {
             cadena = Utilidades.leerCadena(teclado, "\tPorte no encontrado.\n" + mensaje);
             porte = buscarPorte(cadena);
         }

@@ -54,7 +54,7 @@ public class ListaClientes {
         while (i < getOcupacion() - 1 && !clientes[i].getEmail().equals(email)) {
             i++;
         }
-        if (clientes[i].getEmail().equals(email)) cliente = clientes[i];
+        if (clientes[i] != null && clientes[i].getEmail().equals(email)) cliente = clientes[i];
         return cliente;
     }
 

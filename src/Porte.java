@@ -254,9 +254,9 @@ public class Porte {
      * @return ejemplo -> "PM0123"
      */
     public static String generarID(Random rand) {
-        String result = "PM";
-        for (int i = 1; i <= 4; i++) result = result + (rand.nextInt(10) - 1);
-        return result;
+        StringBuilder result = new StringBuilder("PM");
+        for (int i = 1; i <= 4; i++) result.append(rand.nextInt(10) - 1);
+        return result.toString();
     }
 
     /**
@@ -291,7 +291,7 @@ public class Porte {
         }
         double precio = Utilidades.leerNumero(teclado, "Ingrese precio del pasaje:", 0, 9999.99);
         String id = generarID(rand);
-        System.out.println("\tPorte " + id + " creado correctamente");
+        System.out.println("\tPorte " + id + " creado correctamente\n");
         return new Porte(id, nave, origen, muelleOrigen, salida, destino, muelleDestino, llegada, precio);
     }
 

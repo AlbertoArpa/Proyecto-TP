@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
+import static jdk.nashorn.internal.objects.NativeString.toLowerCase;
+
 /**
  * Description of the class,
  *
@@ -96,10 +98,11 @@ public class Cliente {
     public static Cliente altaCliente(Scanner teclado, ListaClientes clientes, int maxEnvios) {
         String nombre = Utilidades.leerCadena(teclado, "Nombre:");
         String apellidos = Utilidades.leerCadena(teclado, "Apellidos:");
-        String email = Utilidades.leerCadena(teclado, "Email: ");
-        while (!correctoEmail(email)) email = Utilidades.leerCadena(teclado, "\tEmail incorrecto\nEmail: ");
+        String email = toLowerCase(Utilidades.leerCadena(teclado, "Email: "));
+        while (!correctoEmail(email)) email = toLowerCase(Utilidades.leerCadena(teclado, "\tEmail incorrecto\nEmail: "));
         while (clientes.buscarClienteEmail(email) != null)
-            email = Utilidades.leerCadena(teclado, "\tEl email ya está registrado\nEmail: ");
+            email = toLowerCase(Utilidades.leerCadena(teclado, "\tEl email ya está registrado\nEmail: "));
+        System.out.println("\tCliente con email " + email + "creado correctamente.\n");
         return new Cliente(nombre, apellidos, email, maxEnvios);
     }
 
@@ -121,7 +124,7 @@ public class Cliente {
             }
             for (int i = 0; i < datos[0].length(); i++) {
                 char caracter = datos[0].charAt(i);
-                if ((caracter < 'a' || caracter > 'z') && caracter != '.') {
+                if (((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z')) && caracter != '.') {
                     correcto = false;
                 }
                 if ((datos[0].charAt(i) == '.') && (datos[0].charAt(i + 1) == '.')) {

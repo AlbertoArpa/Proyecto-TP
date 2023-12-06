@@ -240,17 +240,13 @@ public class PlanetExpress {
                         System.out.println("No se ha encontrado ningún porte");
                     } else {
                         imprimir.listarPortes();
-                        Porte porte1 = planetExpress.listaPortes.seleccionarPorte(teclado, "Ingrese ID de porte para comprar envío o escriba CANCELAR:", "cancelar");
-                        if (porte1 != null) {
-                            planetExpress.contratarEnvio(teclado, random, porte1);
-                        } else {
-                            System.out.println("ID de porte no encontrado.");
-                        }
+                        Porte porte1 = planetExpress.listaPortes.seleccionarPorte(teclado, "Seleccione un porte:", "CANCELAR");
+                        planetExpress.contratarEnvio(teclado, random, porte1);
                     }
                     break;
                 case 4:  // TODO: Listado de envíos de un cliente
                     boolean repetir = true;
-                    Cliente cliente1 = planetExpress.listaClientes.seleccionarCliente(teclado, "Ingrese DNI del cliente:");
+                    Cliente cliente1 = planetExpress.listaClientes.seleccionarCliente(teclado, "Email del cliente: ");
                     if (cliente1.getListaEnvios().getOcupacion() == 0) {
                         System.out.println("El pasajero seleccionado no ha adquirido ningún billete.");
                     } else {
