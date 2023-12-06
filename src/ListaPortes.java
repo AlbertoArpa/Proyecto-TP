@@ -53,6 +53,7 @@ public class ListaPortes {
         return result;
     }
 
+
     /**
      * TODO: Devuelve el objeto Porte que tenga el identificador igual al parámetro id
      *
@@ -60,17 +61,11 @@ public class ListaPortes {
      * @return el objeto Porte que encontramos o null si no existe
      */
     public Porte buscarPorte(String id) {
-        boolean resultado = true;
-        Porte porte = null;
+        Porte result = null;
         int i = 0;
-        while (i < getOcupacion() && resultado){
-            if (portes[i].getID().equals(id)) {
-                porte = portes[i];
-                resultado = false;
-            }
-            i++;
-        }
-        return porte;
+        while (i < getOcupacion() - 1 && portes[i].getID() != id) i++;
+        if (portes[i].getID() == id) result = portes[i];
+        return result;
     }
 
     /**
@@ -84,9 +79,11 @@ public class ListaPortes {
      */
     public ListaPortes buscarPortes(String codigoOrigen, String codigoDestino, Fecha fecha) {
         ListaPortes listaPortes = new ListaPortes(portes.length);
+        int j = 0;
         for (int i = 0; i < getOcupacion(); i++) {
-            if (portes[i].coincide(codigoOrigen, codigoDestino, fecha)) {
-                listaPortes.insertarPorte(portes[i]);
+            if (portes[i].getOrigen().getCodigo() == codigoOrigen && portes[i].getDestino().getCodigo() == codigoDestino && portes[i].getSalida() == fecha) {
+                listaPortes.portes[j] = portes[i];
+                j++;
             }
         }
         return listaPortes;
@@ -99,11 +96,8 @@ public class ListaPortes {
         for (int i = 0; i < portes.length; i++)
             System.out.println("Porte " + portes[i].getID() + " de " + portes[i].getOrigen().getNombre() + "(" + portes[i].getOrigen().getCodigo() + ") M" + " (" + portes[i].getSalida() +
                     ") a " + portes[i].getDestino().getNombre() + "(" + portes[i].getDestino().getCodigo() + ") M" + portes[i].getLlegada() + ")");
-        /*//Tendría que hacerse así?
-        for (int i = 0; i < getOcupacion(); i++) {
-            System.out.println(portes[i].toString());
-        }*/
     }
+
 
     /**
      * TODO: Permite seleccionar un Porte existente a partir de su ID, usando el mensaje pasado como argumento para
@@ -117,31 +111,14 @@ public class ListaPortes {
      * @return
      */
     public Porte seleccionarPorte(Scanner teclado, String mensaje, String cancelar) {
+        listarPortes();
         Porte porte = null;
-        int i = 0;
-        boolean sigue = true;
-        boolean sigueteclado = true;
-        System.out.print(mensaje);
-        String linea = teclado.nextLine();
-        do {
-            if (!linea.toUpperCase().equals(cancelar.toUpperCase())) {
-                while (i < getOcupacion() && sigue) {
-                    if (portes[i].getID().equals(linea)) {
-                        porte = portes[i];
-                        sigue = false;
-                        sigueteclado = false;
-                    }
-                    i++;
-                }
-                if (porte == null) {
-                    System.out.println("ID de porte no encontrado.");
-                    System.out.print(mensaje);
-                    linea = teclado.nextLine();
-                }
-            } else {
-                sigueteclado = false;
-            }
-        } while (sigueteclado);
+        String cadena = Utilidades.leerCadena(teclado, mensaje);
+        if (cadena != cancelar) porte = buscarPorte(cadena);
+        while (cadena != cancelar && porte == null) {
+            cadena = Utilidades.leerCadena(teclado, "\tPorte no encontrado.\n" + mensaje);
+            porte = buscarPorte(cadena);
+        }
         return porte;
     }
 

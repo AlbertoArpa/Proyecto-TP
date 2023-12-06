@@ -59,15 +59,11 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String localizador) {
-        Envio envio = null;
+        Envio result = null;
         int i = 0;
-        while (i < getOcupacion()) {
-            if (envios[i].getLocalizador().equals(localizador)) {
-                envio = envios[i];
-            }
-            i++;
-        }
-        return envio;
+        while (i < getOcupacion() - 1 && localizador != envios[i].getLocalizador()) i++;
+        if (envios[i].getLocalizador() == localizador) result = envios[i];
+        return result;
     }
 
     /**
@@ -79,16 +75,13 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String idPorte, int fila, int columna) {
-        boolean resultado = true;
-        Envio envio = null;
+        Envio result = null;
         int i = 0;
-        while (i < getOcupacion() && resultado) {
-            if (envios[i].getPorte().getID().equals(idPorte) && envios[i].getFila() == fila && envios[i].getColumna() == columna) {
-                envio = envios[i];
-                resultado = false;
-            }
-        }
-        return envio;
+        while (i < getOcupacion() - 1 && envios[i].getPorte().getID() != idPorte && envios[i].getFila() != fila && envios[i].getColumna() != columna)
+            i++;
+        if (envios[i].getPorte().getID() == idPorte && envios[i].getFila() == fila && envios[i].getColumna() == columna)
+            result = envios[i];
+        return result;
     }
 
     /**
@@ -98,16 +91,15 @@ public class ListaEnvios {
      * @return True si se ha borrado correctamente, false en cualquier otro caso
      */
     public boolean eliminarEnvio(String localizador) {
-        boolean eliminado = false;
-        for (int i = 0; i < getOcupacion(); i++) {
-            if (envios[i].getLocalizador().equals(localizador)) {
-                for (int j = i + 1; j < getOcupacion(); j++) {
-                    envios[j] = envios[i];
-                }
-                eliminado = true;
-            }
+        int i = 0;
+        while ((localizador != envios[i].getLocalizador()) && i < envios.length - 1) i++;
+        boolean result = false;
+        if (envios[i].getLocalizador() == localizador) {
+            envios[i] = null;
+            for (int j = i; j < envios.length - 1; j++) envios[j] = envios[j + 1];
+            result = true;
         }
-        return eliminado;
+        return result;
     }
 
     /**
@@ -118,12 +110,12 @@ public class ListaEnvios {
         for (int i = 0; i < envios.length; i++) {
             System.out.println("\tEnvío " + envios[i].getLocalizador() + " para " + envios[i].getPorte().toStringSimple() +
                     "en hueco " + envios[i].getHueco() + " por " + envios[i].getPrecio() + " SSD");
-
-            /*//No podría hacerse así?
-            System.out.println(envios[i]);*/
         }
-    }
+        /*//No podría hacerse así?
+        System.out.println(envios[i]);
 
+        no porque el toString() de Envio es diferente a listarEnvios()*/
+    }
 
     /**
      * TODO: Permite seleccionar un Envio existente a partir de su localizador, usando el mensaje pasado como argumento
@@ -135,17 +127,11 @@ public class ListaEnvios {
      * @return
      */
     public Envio seleccionarEnvio(Scanner teclado, String mensaje) {
-        Envio envio;
-        do {
-            System.out.print(mensaje);
-            String loc = teclado.nextLine();
-            envio = buscarEnvio(loc);
-            if (envio == null) {
-                System.out.println("Localizador no encontrado.");
-            }
-        } while (envio == null);
+        Envio envio = buscarEnvio(Utilidades.leerCadena(teclado, mensaje));
+        while (envio == null) envio = buscarEnvio(Utilidades.leerCadena(teclado, "\tLocalizador incorrecto\n" + mensaje));
         return envio;
     }
+
 
     /**
      * TODO: Añade los Envios al final de un fichero CSV, SIN SOBREESCRIBIR la información
@@ -154,23 +140,19 @@ public class ListaEnvios {
      * @return
      */
     public boolean aniadirEnviosCsv(String fichero) {
-        boolean escrito = true;
         PrintWriter pw = null;
         try {
-            pw = new PrintWriter(new FileWriter(fichero, true));
+            pw = new PrintWriter(fichero);
             for (int i = 0; i < getOcupacion(); i++) {
                 pw.append("\n" + envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio());
             }
-            escrito = true;
+            return true;
         } catch (Exception e) {
             System.out.println("Error de escritura en fichero Envíos.");
-            escrito = false;
+            return false;
         } finally {
-            if (pw != null) {
-                pw.close();
-            }
+            if (pw != null) pw.close();
         }
-        return escrito;
     }
 
     /**
