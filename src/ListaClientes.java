@@ -81,19 +81,18 @@ public class ListaClientes {
      * @return
      */
     public boolean escribirClientesCsv(String fichero) {
-        boolean result = false;
+        PrintWriter pw = null;
         try {
-        PrintWriter pw = new PrintWriter(fichero);
+        pw = new PrintWriter(fichero);
         for (int i = 0; i < getOcupacion(); i++) {
             pw.println(clientes[i].getNombre() + ";" + clientes[i].getApellidos() + ";" + clientes[i].getEmail());
         }
-        pw.close();
+        return true;
         } catch (FileNotFoundException e) {
             return false;
         } finally {
-
+            if (pw != null)pw.close();
         }
-        return true;
     }
 
     /**
