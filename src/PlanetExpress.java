@@ -184,8 +184,7 @@ public class PlanetExpress {
         System.out.println("4. Mostrar envíos de un cliente");
         System.out.println("5. Generar lista de envíos");
         System.out.println("0. Salir");
-        int opcion = Utilidades.leerNumero(teclado, "Seleccione opción:", 0, 5);
-        return opcion;
+        return Utilidades.leerNumero(teclado, "Seleccione opción:", 0, 5);
     }
 
     /**
@@ -208,6 +207,10 @@ public class PlanetExpress {
      *             y concluirá la ejecución del mismo: `Número de argumentos incorrecto`.
      */
     public static void main(String[] args) {
+        if (args.length != 10) {
+            System.out.println("Número de argumentos incorrecto");
+            return;
+        }
         Scanner teclado = new Scanner(System.in);
         Random random = new Random();
         PlanetExpress planetExpress = new PlanetExpress(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));

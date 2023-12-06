@@ -63,10 +63,10 @@ public class ListaNaves {
     public Nave buscarNave(String matricula) {
         Nave result = null;
         int i = 0;
-        while (i < getOcupacion() - 1 && naves[i].getMatricula() != matricula) {
+        while (i < getOcupacion() - 1 && !naves[i].getMatricula().equals(matricula)) {
             i++;
         }
-        if (naves[i].getMatricula() == matricula) result = naves[i];
+        if (naves[i].getMatricula().equals(matricula)) result = naves[i];
         return result;
     }
 
@@ -95,9 +95,9 @@ public class ListaNaves {
             String matricula = teclado.nextLine();
             nave = buscarNave(matricula);
             if (nave == null) {
-                System.out.println("Matrícula de nave no encontrada.");
+                System.out.println("\tMatrícula de nave no encontrada.");
             } else if (nave.getAlcance() < alcance) {
-                System.out.printf("Nave seleccionada con alcance insuficiente (menor que %.3f km).\n", alcance);
+                System.out.println("\tAvión seleccionado con alcance insuficiente.");
             }
         } while (nave == null || alcance > nave.getAlcance());
         return nave;

@@ -59,13 +59,11 @@ public class ListaEnvios {
      * @return el envio que encontramos o null si no existe
      */
     public Envio buscarEnvio(String localizador) {
-       boolean resultado = 0;
         Envio envio = null;
         int i = 0;
-        while (i < getOcupacion() && resultado) {
+        while (i < getOcupacion()) {
             if (envios[i].getLocalizador().equals(localizador)) {
                 envio = envios[i];
-                resultado = false;
             }
             i++;
         }
@@ -190,9 +188,10 @@ public class ListaEnvios {
             while (linea != null) {
                 String[] datos = linea.split(";");
                 Porte porte = portes.buscarPorte(datos[1]);
-                Cliente cliente = new Cliente(datos[0], datos[1], datos[2], Integer.parseInt(datos[3]));
+                Envio envio = new Envio(datos[0], portes.buscarPorte(datos[1]), clientes.buscarClienteEmail(datos[2]), Integer.parseInt(datos[3]), Integer.parseInt(datos[4]), Double.parseDouble(datos[5]));
+                porte.getListaEnvios().insertarEnvio(envio);
                 porte.ocuparHueco(envio);
-                cliente.aniadirEnvio(envio);
+                clientes.buscarClienteEmail(datos[2]).aniadirEnvio(envio);
                 linea = out.readLine();
             }
         } catch (IOException ex) {

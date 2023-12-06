@@ -63,8 +63,8 @@ public class ListaPuertosEspaciales {
     public PuertoEspacial buscarPuertoEspacial(String codigo) {
         PuertoEspacial result = null;
         int i = 0;
-        while (i < getOcupacion() - 1 && lista[i].getCodigo() != codigo) i++;
-        if (lista[i].getCodigo() == codigo) result = lista[i];
+        while (i < getOcupacion() - 1 && !lista[i].getCodigo().equals(codigo)) i++;
+        if (lista[i].getCodigo().equals(codigo)) result = lista[i];
         return result;
     }
 
@@ -80,7 +80,7 @@ public class ListaPuertosEspaciales {
     public PuertoEspacial seleccionarPuertoEspacial(Scanner teclado, String mensaje) {
         PuertoEspacial puertoEspacial = null;
         String codigo = Utilidades.leerCadena(teclado, mensaje);
-        while (buscarPuertoEspacial(codigo).getCodigo() != codigo) {
+        while (buscarPuertoEspacial(codigo) == null || !buscarPuertoEspacial(codigo).getCodigo().equals(codigo)) {
             System.out.println("\tCódigo de puerto no encontrado.");
             codigo = Utilidades.leerCadena(teclado, mensaje);
         }
