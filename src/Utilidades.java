@@ -92,7 +92,6 @@ public class Utilidades {
             System.out.print(mensaje);
             resultado = teclado.nextLine().charAt(0);
         }
-
         return resultado;
     }
 

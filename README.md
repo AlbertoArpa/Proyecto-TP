@@ -11,3 +11,5 @@ ningun alcance de las naves permite hacer ningun envio
 arreglar que sale Fecha de Salida despues de Fecha introducida incorrecta
 
 ARREGLAR LOS CASOS 4 Y 5 PORQUE HACEN LO DEL AÑO PASADO
+
+listar portes que se tabule igual que en el ejemplo
