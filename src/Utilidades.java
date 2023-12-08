@@ -21,7 +21,6 @@ public class Utilidades {
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
         System.out.print(mensaje);
         int resultado = teclado.nextInt();
-
         while (resultado < minimo || resultado > maximo) {
             System.out.print(mensaje);
             resultado = teclado.nextInt();
@@ -86,11 +85,10 @@ public class Utilidades {
      */
     public static char leerLetra(Scanner teclado, String mensaje, char minimo, char maximo) {
         System.out.print(mensaje);
-        char resultado = teclado.nextLine().charAt(0);
-
+        char resultado = teclado.next().charAt(0);
         while (resultado < minimo || resultado > maximo) {
             System.out.print(mensaje);
-            resultado = teclado.nextLine().charAt(0);
+            resultado = teclado.next().charAt(0);
         }
         return resultado;
     }

@@ -128,7 +128,7 @@ public class Envio {
     public static String generarLocalizador(Random rand, String idPorte) {
         StringBuilder localizador = new StringBuilder(idPorte);
         for (int i = 1; i <= 9; i++) {
-            localizador.append((char) (rand.nextInt('A' - 'Z' + 1) + 'A'));
+            localizador.append((char) (rand.nextInt('Z' - 'A' + 1) + 'A'));
         }
         return localizador.toString();
     }
@@ -150,7 +150,7 @@ public class Envio {
         int fila = Utilidades.leerNumero(teclado, "Fila del hueco:", 1, porte.getFilas());
         int columna = Utilidades.leerNumero(teclado, "Columna del hueco:", 1, porte.getColumnas());
         double precio = Utilidades.leerNumero(teclado, "Precio del envío:", 0, 9999.99);
-        System.out.println("\tEnvío " + localizador + " creado correctamente");
+        System.out.println("\tEnvío " + localizador + " creado correctamente\n");
         return new Envio(localizador, porte, cliente, fila, columna, precio);
     }
 }

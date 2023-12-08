@@ -48,6 +48,8 @@ public class Porte {
         this.muelleDestino = muelleDestino;
         this.llegada = llegada;
         this.precio = precio;
+        huecos = new boolean[10][6];
+        listaEnvios = new ListaEnvios(getFilas() * getColumnas());
     }
 
     public String getID() {
@@ -90,8 +92,8 @@ public class Porte {
     public int numHuecosLibres() {
         int result = 0;
         for (int i = 0; i < huecos.length; i++) {
-            for (int j = 0; j < huecos[j].length; j++) {
-                if (!huecos[j][i]) result++;
+            for (int j = 0; j < huecos[i].length; j++) {
+                if (!huecos[i][j]) result++;
             }
         }
         return result;
@@ -121,10 +123,10 @@ public class Porte {
     public Envio buscarEnvio(int fila, int columna) {
         Envio result = null;
         int i = 0;
-        while (listaEnvios.getEnvio(i).getFila() != fila && listaEnvios.getEnvio(i).getColumna() != columna) {
+        while (i < listaEnvios.getOcupacion() && listaEnvios.getEnvio(i).getFila() != fila && listaEnvios.getEnvio(i).getColumna() != columna) {
             i++;
         }
-        if (listaEnvios.getEnvio(i).getFila() == fila && listaEnvios.getEnvio(i).getColumna() == columna)
+        if (listaEnvios.getEnvio(i) != null && listaEnvios.getEnvio(i).getFila() == fila && listaEnvios.getEnvio(i).getColumna() == columna)
             result = listaEnvios.getEnvio(i);
         return result;
     }

@@ -10,6 +10,14 @@ ningun alcance de las naves permite hacer ningun envio
 
 arreglar que sale Fecha de Salida despues de Fecha introducida incorrecta
 
-ARREGLAR LOS CASOS 4 Y 5 PORQUE HACEN LO DEL AÑO PASADO
+revisar el uso de imprimir huecos
 
-listar portes que se tabule igual que en el ejemplo
+arreglar generarId() para que no salga un guion
+
+CUANTOS HUECOS TIENE QUE TENER UN PORTE???
+
+arreglar comparadores fechas
+
+arreglar que en el metodo 5 da nullpointerexception
+
+arreglar que el caso 4 no reconoce un email creado en el caso 3

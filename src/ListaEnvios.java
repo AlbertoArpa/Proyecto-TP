@@ -77,9 +77,9 @@ public class ListaEnvios {
     public Envio buscarEnvio(String idPorte, int fila, int columna) {
         Envio result = null;
         int i = 0;
-        while (i < getOcupacion() - 1 && envios[i].getPorte().getID() != idPorte && envios[i].getFila() != fila && envios[i].getColumna() != columna)
+        while (i < getOcupacion() - 1 && !envios[i].getPorte().getID().equals(idPorte) && envios[i].getFila() != fila && envios[i].getColumna() != columna)
             i++;
-        if (envios[i].getPorte().getID() == idPorte && envios[i].getFila() == fila && envios[i].getColumna() == columna)
+        if (envios[i].getPorte().getID().equals(idPorte) && envios[i].getFila() == fila && envios[i].getColumna() == columna)
             result = envios[i];
         return result;
     }
@@ -92,9 +92,9 @@ public class ListaEnvios {
      */
     public boolean eliminarEnvio(String localizador) {
         int i = 0;
-        while ((localizador != envios[i].getLocalizador()) && i < envios.length - 1) i++;
+        while ((!localizador.equals(envios[i].getLocalizador())) && i < envios.length - 1) i++;
         boolean result = false;
-        if (envios[i].getLocalizador() == localizador) {
+        if (envios[i].getLocalizador().equals(localizador)) {
             envios[i] = null;
             for (int j = i; j < envios.length - 1; j++) envios[j] = envios[j + 1];
             result = true;

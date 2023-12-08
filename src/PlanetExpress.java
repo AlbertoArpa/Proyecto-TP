@@ -128,8 +128,29 @@ public class PlanetExpress {
      */
     public void contratarEnvio(Scanner teclado, Random rand, Porte porte) {
         char letra;
+        if (listaClientes.estaLlena()) letra = 'e';
+        else if (listaClientes.getOcupacion() == 0) letra = 'n';
+        else if (porte.porteLleno()) {
+            System.out.println("\tNo quedan huecos en el porte\n");
+            letra = 'z';
+        } else
+            letra = Utilidades.leerLetra(teclado, "¿Comprar billete para un nuevo pasajero (n), o para uno ya existente (e)?", 'a', 'z');
+        while (letra != 'n' && letra != 'e' && letra != 'z')
+            letra = Utilidades.leerLetra(teclado, "\tEl valor de entrada debe ser 'n' o 'e'\n¿Comprar billete para un nuevo pasajero (n), o para uno ya existente (e)?", 'a', 'z');
+        switch (letra) {
+            case 'n':
+                Envio.altaEnvio(teclado, rand, porte, Cliente.altaCliente(teclado, listaClientes, maxEnviosPorCliente));
+                break;
+            case 'e':
+                Envio.altaEnvio(teclado, rand, porte, listaClientes.seleccionarCliente(teclado, Utilidades.leerCadena(teclado, "Email del cliente:")));
+                break;
+            case 'z':
+                break;
+        }
+
+/*        char letra;
         if (listaClientes.estaLlena()) {
-            Cliente cliente = listaClientes.seleccionarCliente(teclado, "Ingrese DNI del cliente:");
+            Cliente cliente = listaClientes.seleccionarCliente(teclado, "Email del cliente:");
             if (cliente.getListaEnvios().estaLlena()) { //todo: pendiente
                 System.out.println("El Cliente seleccionado no puede adquirir más billetes.");
             } else {
@@ -145,15 +166,15 @@ public class PlanetExpress {
         if (porte.numHuecosLibres() > 0) {
             boolean repite = true;
             do {
-                letra = Utilidades.leerLetra(teclado, "¿Comprar billete para un nuevo pasajero (n), o para uno ya existente (e)?", 'e', 'n');
+                letra = Utilidades.leerLetra(teclado, "¿Comprar billete para un nuevo pasajero (n), o para uno ya existente (e)?", 'a', 'z');
                 if (letra != 'n' && letra != 'e') {
-                    System.out.println("El valor de entrada debe ser 'n' o 'e'");
+                    System.out.println("\tEl valor de entrada debe ser 'n' o 'e'");
                 } else {
                     repite = false;
                 }
             } while (repite);
             if (letra == 'e') {
-                Cliente cliente = listaClientes.seleccionarCliente(teclado, "Ingrese DNI del pasajero:");
+                Cliente cliente = listaClientes.seleccionarCliente(teclado, "Email del cliente:");
                 if (cliente.getListaEnvios().estaLlena()) {
                     System.out.println("El Pasajero seleccionado no puede adquirir más billetes.");
                 } else {
@@ -167,7 +188,7 @@ public class PlanetExpress {
             }
         } else {
             System.out.println("El porte " + porte.getID() + " está lleno, no se pueden comprar más billetes");
-        }
+        }*/
     }
 
     /**
@@ -239,19 +260,18 @@ public class PlanetExpress {
                     if (imprimir.getOcupacion() == 0) {
                         System.out.println("No se ha encontrado ningún porte");
                     } else {
-                        imprimir.listarPortes();
-                        Porte porte1 = planetExpress.listaPortes.seleccionarPorte(teclado, "Seleccione un porte:", "CANCELAR");
-                        planetExpress.contratarEnvio(teclado, random, porte1);
+                        Porte porte = planetExpress.listaPortes.seleccionarPorte(teclado, "Seleccione un porte:", "CANCELAR");
+                        planetExpress.contratarEnvio(teclado, random, porte);
                     }
                     break;
                 case 4:  // TODO: Listado de envíos de un cliente
                     boolean repetir = true;
-                    Cliente cliente1 = planetExpress.listaClientes.seleccionarCliente(teclado, "Email del cliente: ");
-                    if (cliente1.getListaEnvios().getOcupacion() == 0) {
+                    Cliente cliente = planetExpress.listaClientes.seleccionarCliente(teclado, "Email del cliente: ");
+                    if (cliente.getListaEnvios().getOcupacion() == 0) {
                         System.out.println("El pasajero seleccionado no ha adquirido ningún billete.");
                     } else {
-                        cliente1.listarEnvios();
-                        Envio envio = cliente1.seleccionarEnvio(teclado, "Seleccione un envío:");
+                        cliente.listarEnvios();
+                        Envio envio = cliente.seleccionarEnvio(teclado, "Seleccione un envío:");
                         do {
                             switch (Utilidades.leerLetra(teclado, "¿Cancelar envío (c), o generar factura (f)?", 'a', 'z')) {
                                 case 'c':
@@ -272,11 +292,10 @@ public class PlanetExpress {
                     }
                     break;
                 case 5: // TODO: Lista de envíos de un porte
-                    Porte porte1 = planetExpress.listaPortes.seleccionarPorte(teclado, "Ingrese ID del porte:", "cancelar");
-                    System.out.println("Introduzca la ruta donde generar la lista de clientes:");
-                    String ruta = teclado.nextLine();
-                    porte1.generarListaEnvios(ruta);
-                    System.out.println("Lista de clientes del Porte" + porte1.getID() + " generada en " + ruta);
+                    Porte porte = planetExpress.listaPortes.seleccionarPorte(teclado, "Seleccione un porte: ", "CANCELAR");
+                    String ruta = Utilidades.leerCadena(teclado, "Nombre del fichero: ");
+                    porte.generarListaEnvios(ruta);
+                    System.out.println("Lista de clientes del Porte" + porte.getID() + " generada en " + ruta);
                     break;
                 case 0:
                     break;

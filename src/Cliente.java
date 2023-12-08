@@ -102,7 +102,7 @@ public class Cliente {
         while (!correctoEmail(email)) email = toLowerCase(Utilidades.leerCadena(teclado, "\tEmail incorrecto\nEmail: "));
         while (clientes.buscarClienteEmail(email) != null)
             email = toLowerCase(Utilidades.leerCadena(teclado, "\tEl email ya está registrado\nEmail: "));
-        System.out.println("\tCliente con email " + email + "creado correctamente.\n");
+        System.out.println("\tCliente con email " + email + " creado correctamente\n");
         return new Cliente(nombre, apellidos, email, maxEnvios);
     }
 

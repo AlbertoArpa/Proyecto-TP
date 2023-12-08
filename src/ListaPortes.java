@@ -63,8 +63,8 @@ public class ListaPortes {
     public Porte buscarPorte(String id) {
         Porte result = null;
         int i = 0;
-        while (i < getOcupacion() - 1 && portes[i].getID() != id) i++;
-        if (portes[i].getID() == id) result = portes[i];
+        while (i < getOcupacion() - 1 && !portes[i].getID().equals(id)) i++;
+        if (portes[i] != null && portes[i].getID().equals(id)) result = portes[i];
         return result;
     }
 
@@ -96,6 +96,7 @@ public class ListaPortes {
         for (int i = 0; i < getOcupacion(); i++)
             System.out.println("\tPorte " + portes[i].getID() + " de " + portes[i].getOrigen().getNombre() + "(" + portes[i].getOrigen().getCodigo() + ") M" + portes[i].getMuelleOrigen() + " (" + portes[i].getSalida() +
                     ") a " + portes[i].getDestino().getNombre() + "(" + portes[i].getDestino().getCodigo() + ") M" + portes[i].getMuelleDestino() + " (" + portes[i].getLlegada() + ")");
+        System.out.print("\n");
     }
 
 
@@ -114,8 +115,8 @@ public class ListaPortes {
         listarPortes();
         Porte porte = null;
         String cadena = Utilidades.leerCadena(teclado, mensaje);
-        if (cadena.equals(cancelar)) porte = buscarPorte(cadena);
-        while (cadena.equals(cancelar) && porte == null) {
+        if (!cadena.equals(cancelar)) porte = buscarPorte(cadena);
+        while (!cadena.equals(cancelar) && porte == null) {
             cadena = Utilidades.leerCadena(teclado, "\tPorte no encontrado.\n" + mensaje);
             porte = buscarPorte(cadena);
         }
