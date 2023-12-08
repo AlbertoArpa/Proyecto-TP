@@ -251,12 +251,9 @@ public class PlanetExpress {
                         System.out.println("El pasajero seleccionado no ha adquirido ningún billete.");
                     } else {
                         cliente1.listarEnvios();
-                        Envio envio = cliente1.seleccionarEnvio(teclado, "Ingrese localizador del envio:");
-                        char letra;
-
+                        Envio envio = cliente1.seleccionarEnvio(teclado, "Seleccione un envío:");
                         do {
-                            letra = Utilidades.leerLetra(teclado, "¿Generar factura del billete (f), cancelarlo (c), o volver al menu (m)?", 'a', 'z');
-                            switch (letra) {
+                            switch (Utilidades.leerLetra(teclado, "¿Cancelar envío (c), o generar factura (f)?", 'a', 'z')) {
                                 case 'c':
                                     String localizador = envio.getLocalizador();
                                     envio.cancelar();
@@ -264,24 +261,16 @@ public class PlanetExpress {
                                     repetir = false;
                                     break;
                                 case 'f':
-                                    System.out.print("Introduzca la ruta donde generar la factura:");
-                                    String fichero = teclado.nextLine();
-                                    envio.generarFactura(fichero);
-                                    System.out.println("Factura de Envio " + envio.getLocalizador() + " generada en " + fichero);
-                                    repetir = false;
-                                    break;
-                                case 'm':
-                                    menu(teclado);
+                                    envio.generarFactura(Utilidades.leerCadena(teclado, "Nombre del fichero: "));
+                                    System.out.println("\tFactura generada correctamente");
                                     repetir = false;
                                     break;
                                 default:
-                                    System.out.println("El valor de entrada debe ser 'f', 'c' o 'm'");
+                                    System.out.println("El valor de entrada debe ser 'f' o 'c'");
                             }
                         } while (repetir);
                     }
-
                     break;
-
                 case 5: // TODO: Lista de envíos de un porte
                     Porte porte1 = planetExpress.listaPortes.seleccionarPorte(teclado, "Ingrese ID del porte:", "cancelar");
                     System.out.println("Introduzca la ruta donde generar la lista de clientes:");
@@ -289,7 +278,6 @@ public class PlanetExpress {
                     porte1.generarListaEnvios(ruta);
                     System.out.println("Lista de clientes del Porte" + porte1.getID() + " generada en " + ruta);
                     break;
-
                 case 0:
                     break;
             }
