@@ -98,21 +98,24 @@ public class Envio {
      * Precio: 13424,56 SSD
      */
     public boolean generarFactura(String fichero) {
+        PrintWriter salida = null;
         try {
-            PrintWriter salida = new PrintWriter(fichero);
-            salida.print("-----------------------------------------------------\n--------- Factura del envío " +
+            salida = new PrintWriter(fichero);
+            salida.println("-----------------------------------------------------\n--------- Factura del envío " +
                     localizador + " ---------\n-----------------------------------------------------\nPorte: " + porte.getID() +
                     "\nOrigen: " + porte.getOrigen().toStringSimple() + " M" + porte.getMuelleOrigen() +
                     "\nDestino: " + porte.getDestino().toStringSimple() + " M" + porte.getMuelleDestino() +
                     "\nSalida: " + porte.getSalida() +
                     "\nLlegada: " + porte.getLlegada() +
                     "\nCliente: " + cliente.toString() +
-                    "\nHueco: " + getHueco() +
-                    "\nPrecio: " + precio + " SSD");
-            salida.close();
+                    "\nHueco: " + getHueco());
+            salida.printf("Precio %.2f", precio);
+            System.out.println("\tFactura generada correctamente");
             return true;
         } catch (FileNotFoundException e) {
             return false;
+        } finally {
+            if (salida != null) salida.close();
         }
     }
 
@@ -151,6 +154,10 @@ public class Envio {
         int columna = Utilidades.leerNumero(teclado, "Columna del hueco:", 1, porte.getColumnas());
         double precio = Utilidades.leerNumero(teclado, "Precio del envío:", 0, 9999.99);
         System.out.println("\tEnvío " + localizador + " creado correctamente\n");
-        return new Envio(localizador, porte, cliente, fila, columna, precio);
+        Envio envio = new Envio(localizador, porte, cliente, fila, columna, precio);
+        cliente.aniadirEnvio(envio);
+        porte.getListaEnvios().insertarEnvio(envio);
+        porte.ocuparHueco(envio);
+        return envio;
     }
 }

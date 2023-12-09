@@ -182,7 +182,7 @@ public class Porte {
      * @return ejemplo del formato -> "Porte PM0066 de GGT M5 (01/01/2023 08:15:00) a CID M1 (01/01/2024 11:00:05)"
      */
     public String toStringSimple() {
-        return "Porte " + id + " de " + origen.getCodigo() + " M" + muelleOrigen + " (" + salida + " a " +
+        return "Porte " + id + " de " + origen.getCodigo() + " M" + muelleOrigen + " (" + salida + ") a " +
                 destino.getCodigo() + " M" + muelleDestino + " (" + llegada + ")";
     }
 
@@ -231,18 +231,25 @@ public class Porte {
      * @return
      */
     public boolean generarListaEnvios(String fichero) {
+        PrintWriter pw = null;
         try {
-            PrintWriter pw = new PrintWriter(fichero);
+            pw = new PrintWriter(fichero);
             pw.println("--------------------------------------------------\n-------- Lista de envíos del porte " +
                     id + " --------\n--------------------------------------------------\nHueco\tCliente");
             for (int i = 0; i < huecos.length; i++) {
                 for (int j = 0; j < huecos[i].length; j++) {
-                    System.out.print(i + j + "\t" + buscarEnvio(i, j).getCliente().toString());
+                    pw.print(i + 1 + "" + (char) (j + 'A'));
+                    if (buscarEnvio(i, j) != null) pw.print("\t" + buscarEnvio(i, j).getCliente().toString());
+                    pw.print("\n");
                 }
             }
             return true;
         } catch (FileNotFoundException e) {
             return false;
+        } finally {
+            if (pw != null){
+                pw.close();
+            }
         }
     }
 
@@ -257,7 +264,7 @@ public class Porte {
      */
     public static String generarID(Random rand) {
         StringBuilder result = new StringBuilder("PM");
-        for (int i = 1; i <= 4; i++) result.append(rand.nextInt(10) - 1);
+        for (int i = 1; i <= 4; i++) result.append(rand.nextInt(10));
         return result.toString();
     }
 

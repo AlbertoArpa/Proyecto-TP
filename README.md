@@ -20,4 +20,4 @@ arreglar comparadores fechas
 
 arreglar que en el metodo 5 da nullpointerexception
 
-arreglar que el caso 4 no reconoce un email creado en el caso 3
+arreglar escribirEnvios

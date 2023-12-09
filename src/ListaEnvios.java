@@ -61,8 +61,8 @@ public class ListaEnvios {
     public Envio buscarEnvio(String localizador) {
         Envio result = null;
         int i = 0;
-        while (i < getOcupacion() - 1 && localizador != envios[i].getLocalizador()) i++;
-        if (envios[i].getLocalizador() == localizador) result = envios[i];
+        while (i < getOcupacion() - 1 && !localizador.equals(envios[i].getLocalizador())) i++;
+        if (envios[i].getLocalizador().equals(localizador)) result = envios[i];
         return result;
     }
 
@@ -107,9 +107,9 @@ public class ListaEnvios {
      * en el enunciado
      */
     public void listarEnvios() {
-        for (int i = 0; i < envios.length; i++) {
+        for (int i = 0; i < getOcupacion(); i++) {
             System.out.println("\tEnvío " + envios[i].getLocalizador() + " para " + envios[i].getPorte().toStringSimple() +
-                    "en hueco " + envios[i].getHueco() + " por " + envios[i].getPrecio() + " SSD");
+                    " en hueco " + envios[i].getHueco() + " por " + envios[i].getPrecio() + " SSD");
         }
         /*//No podría hacerse así?
         System.out.println(envios[i]);
