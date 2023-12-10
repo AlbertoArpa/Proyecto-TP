@@ -141,8 +141,8 @@ public class Porte {
      */
     public boolean ocuparHueco(Envio envio) {
         boolean result = false;
-        if (!huecos[envio.getFila()][envio.getColumna()]) {
-            huecos[envio.getFila()][envio.getColumna()] = true;
+        if (!huecos[envio.getFila() - 1][envio.getColumna() - 1]) {
+            huecos[envio.getFila() - 1][envio.getColumna() - 1] = true;
             result = true;
         }
         return result;

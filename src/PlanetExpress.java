@@ -68,19 +68,20 @@ public class PlanetExpress {
      * @param ficheroEnvios
      */
     public void guardarDatos(String ficheroPuertos, String ficheroNaves, String ficheroPortes, String ficheroClientes, String ficheroEnvios) {
-        boolean correcto = true;
         listaPuertosEspaciales.escribirPuertosEspacialesCsv(ficheroPuertos);
         listaNaves.escribirNavesCsv(ficheroNaves);
         listaPortes.escribirPortesCsv(ficheroPortes);
         listaClientes.escribirClientesCsv(ficheroClientes);
+        PrintWriter out = null;
         try {
-            PrintWriter out = new PrintWriter(ficheroEnvios);
+            out = new PrintWriter(ficheroEnvios);
             for (int i = 0; i < listaPortes.getOcupacion(); i++) {
                 listaPortes.getPorte(i).getListaEnvios().aniadirEnviosCsv(ficheroEnvios);
             }
-            out.close();
         } catch (IOException e) {
             System.out.println("Error de escritura en fichero Envios.");
+        } finally {
+            if (out != null) out.close();
         }
     }
 
@@ -146,7 +147,8 @@ public class PlanetExpress {
                 break;
             case 'e':
                 cliente = listaClientes.seleccionarCliente(teclado, "Email del cliente:");
-                if (cliente.maxEnviosAlcanzado()) System.out.println("\tSe ha alcanzado el máximo de envíos para el cliente");
+                if (cliente.maxEnviosAlcanzado())
+                    System.out.println("\tSe ha alcanzado el máximo de envíos para el cliente");
                 else Envio.altaEnvio(teclado, rand, porte, cliente);
                 break;
             case 'z':
@@ -231,7 +233,7 @@ public class PlanetExpress {
                     boolean repetir = true;
                     Cliente cliente = planetExpress.listaClientes.seleccionarCliente(teclado, "Email del cliente: ");
                     if (cliente.getListaEnvios().getOcupacion() == 0) {
-                        System.out.println("El pasajero seleccionado no ha adquirido ningún billete.");
+                        System.out.println("\tEl pasajero seleccionado no ha adquirido ningún billete");
                     } else {
                         cliente.listarEnvios();
                         Envio envio = cliente.seleccionarEnvio(teclado, "Seleccione un envío: ");
@@ -239,8 +241,8 @@ public class PlanetExpress {
                             switch (Utilidades.leerLetra(teclado, "¿Cancelar envío (c), o generar factura (f)?", 'a', 'z')) {
                                 case 'c':
                                     String localizador = envio.getLocalizador();
-                                    envio.cancelar();
-                                    System.out.println("Envio " + localizador + " cancelado.");
+                                    if (envio.cancelar()) System.out.println("\tEnvio " + localizador + " cancelado");
+                                    else System.out.println("\tNo se ha podido cancelar el envío " + localizador);
                                     repetir = false;
                                     break;
                                 case 'f':
@@ -248,7 +250,7 @@ public class PlanetExpress {
                                     repetir = false;
                                     break;
                                 default:
-                                    System.out.println("El valor de entrada debe ser 'f' o 'c'");
+                                    System.out.println("\tEl valor de entrada debe ser 'f' o 'c'");
                             }
                         } while (repetir);
                     }
