@@ -60,7 +60,7 @@ public class Envio {
 
     // TODO: Ejemplos: "1A" para el hueco con fila 1 y columna 1, "3D" para el hueco con fila 3 y columna 4
     public String getHueco() {
-        return fila + "" + (((char) columna) + 'A' - 1);
+        return fila + "" + (char) ((columna) + 'A' - 1);
     }
 
     public double getPrecio() {
