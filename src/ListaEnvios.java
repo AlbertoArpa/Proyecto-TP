@@ -128,7 +128,8 @@ public class ListaEnvios {
      */
     public Envio seleccionarEnvio(Scanner teclado, String mensaje) {
         Envio envio = buscarEnvio(Utilidades.leerCadena(teclado, mensaje));
-        while (envio == null) envio = buscarEnvio(Utilidades.leerCadena(teclado, "\tLocalizador incorrecto\n" + mensaje));
+        while (envio == null)
+            envio = buscarEnvio(Utilidades.leerCadena(teclado, "\tLocalizador incorrecto\n" + mensaje));
         return envio;
     }
 

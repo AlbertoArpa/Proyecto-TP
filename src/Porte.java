@@ -247,7 +247,7 @@ public class Porte {
         } catch (FileNotFoundException e) {
             return false;
         } finally {
-            if (pw != null){
+            if (pw != null) {
                 pw.close();
             }
         }

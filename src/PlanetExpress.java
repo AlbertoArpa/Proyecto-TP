@@ -223,7 +223,7 @@ public class PlanetExpress {
                 case 3: // TODO: Buscar Porte
                     ListaPortes imprimir = planetExpress.buscarPorte(teclado);
                     if (imprimir.getOcupacion() == 0) {
-                        System.out.println("No se ha encontrado ningún porte");
+                        System.out.println("Porte no encontrado.");
                     } else {
                         Porte porte = planetExpress.listaPortes.seleccionarPorte(teclado, "Seleccione un porte:", "CANCELAR");
                         planetExpress.contratarEnvio(teclado, random, porte);
@@ -233,7 +233,7 @@ public class PlanetExpress {
                     boolean repetir = true;
                     Cliente cliente = planetExpress.listaClientes.seleccionarCliente(teclado, "Email del cliente: ");
                     if (cliente.getListaEnvios().getOcupacion() == 0) {
-                        System.out.println("\tEl pasajero seleccionado no ha adquirido ningún billete");
+                        System.out.println("\tEl cliente seleccionado no ha adquirido ningún envío.");
                     } else {
                         cliente.listarEnvios();
                         Envio envio = cliente.seleccionarEnvio(teclado, "Seleccione un envío: ");
@@ -241,7 +241,7 @@ public class PlanetExpress {
                             switch (Utilidades.leerLetra(teclado, "¿Cancelar envío (c), o generar factura (f)?", 'a', 'z')) {
                                 case 'c':
                                     String localizador = envio.getLocalizador();
-                                    if (envio.cancelar()) System.out.println("\tEnvio " + localizador + " cancelado");
+                                    if (envio.cancelar()) System.out.println("\tEnvío " + localizador + " cancelado");
                                     else System.out.println("\tNo se ha podido cancelar el envío " + localizador);
                                     repetir = false;
                                     break;
