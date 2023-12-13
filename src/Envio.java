@@ -109,7 +109,7 @@ public class Envio {
                     "\nLlegada: " + porte.getLlegada() +
                     "\nCliente: " + cliente.toString() +
                     "\nHueco: " + getHueco());
-            salida.printf("Precio %.2f", precio);
+            salida.printf("Precio %.2f SSD", precio);
             System.out.println("\tFactura generada correctamente");
             return true;
         } catch (FileNotFoundException e) {

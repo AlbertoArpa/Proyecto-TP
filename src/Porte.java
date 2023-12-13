@@ -238,8 +238,8 @@ public class Porte {
                     id + " --------\n--------------------------------------------------\nHueco\tCliente");
             for (int i = 0; i < huecos.length; i++) {
                 for (int j = 0; j < huecos[i].length; j++) {
-                    pw.print(i + 1 + "" + (char) (j + 'A'));
-                    if (buscarEnvio(i, j) != null) pw.print("\t" + buscarEnvio(i, j).getCliente().toString());
+                    pw.print(i + "" + (char) (j + 'A' - 1));
+                    if (buscarEnvio(i, j) != null) pw.print("\t\t" + buscarEnvio(i, j).getCliente().toString());
                     pw.print("\n");
                 }
             }
@@ -265,6 +265,7 @@ public class Porte {
     public static String generarID(Random rand) {
         StringBuilder result = new StringBuilder("PM");
         for (int i = 1; i <= 4; i++) result.append(rand.nextInt(10));
+        for (int j = 0; j < result.length(); j++) if (result.charAt(j) == '-') result.deleteCharAt(j);
         return result.toString();
     }
 
