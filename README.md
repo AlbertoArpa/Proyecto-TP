@@ -12,6 +12,6 @@ usar imprimir huecos
 
 CUANTOS HUECOS TIENE QUE TENER UN PORTE???
 
-arreglar comparadores fechas
-arreglar escribirEnvios
-arreglar que sale Fecha de Salida despues de Fecha introducida incorrecta
+arreglar comparadores fechas  
+arreglar escribirEnvios  
+arreglar que sale Fecha de Salida despues de Fecha introducida incorrecta  
