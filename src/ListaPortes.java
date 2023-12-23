@@ -81,7 +81,7 @@ public class ListaPortes {
         ListaPortes listaPortes = new ListaPortes(portes.length);
         int j = 0;
         for (int i = 0; i < getOcupacion(); i++) {
-            if (portes[i].getOrigen().getCodigo().equals(codigoOrigen) && portes[i].getDestino().getCodigo().equals(codigoDestino) && ((portes[i].getSalida().anterior(fecha) || portes[i].getSalida().coincide(fecha)) && (fecha.anterior(portes[i].getLlegada()) || fecha.coincide(portes[i].getLlegada())))) {
+            if (portes[i].getOrigen().getCodigo().equals(codigoOrigen) && portes[i].getDestino().getCodigo().equals(codigoDestino) && portes[i].getSalida().coincide(fecha)) {
                 listaPortes.portes[j] = portes[i];
                 j++;
             }

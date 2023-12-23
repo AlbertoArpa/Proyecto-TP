@@ -196,7 +196,7 @@ public class Porte {
      */
     public boolean coincide(String codigoOrigen, String codigoDestino, Fecha fecha) {
 
-        return codigoOrigen == origen.getCodigo() && codigoDestino == destino.getCodigo() && (fecha == salida || fecha == llegada);
+        return codigoOrigen.equals(origen.getCodigo()) && codigoDestino.equals(destino.getCodigo()) && (fecha == salida || fecha == llegada);
     }
 
     /**
@@ -236,10 +236,10 @@ public class Porte {
             pw = new PrintWriter(fichero);
             pw.println("--------------------------------------------------\n-------- Lista de envíos del porte " +
                     id + " --------\n--------------------------------------------------\nHueco\tCliente");
-            for (int i = 0; i < huecos.length; i++) {
-                for (int j = 0; j < huecos[i].length; j++) {
-                    pw.print(i + "" + (char) (j + 'A' - 1));
-                    if (buscarEnvio(i, j) != null) pw.print("\t\t" + buscarEnvio(i, j).getCliente().toString());
+            for (int i = 1; i < huecos.length; i++) {
+                for (int j = 0; j <= huecos[i].length; j++) {
+                    pw.print(i + "" + (char) (j + 'A'));
+                    if (buscarEnvio(i, j + 1) != null) pw.print("\t\t" + buscarEnvio(i, j + 1).getCliente().toString());
                     pw.print("\n");
                 }
             }

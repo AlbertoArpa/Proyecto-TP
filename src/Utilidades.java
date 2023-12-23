@@ -103,13 +103,11 @@ public class Utilidades {
     public static Fecha leerFecha(Scanner teclado, String mensaje) {
         Fecha fecha = null;
         boolean correcto = true;
-
         while (correcto) {
             System.out.println(mensaje);
             int dia = leerNumero(teclado, "Ingrese día:", 1, 31);
             int mes = leerNumero(teclado, "Ingrese mes:", 1, 12);
             int anio = leerNumero(teclado, "Ingrese año:", Fecha.PRIMER_ANIO, Fecha.ULTIMO_ANIO);
-
             if (Fecha.comprobarFecha(dia, mes, anio)) {
                 correcto = false;
                 fecha = new Fecha(dia, mes, anio);
@@ -117,7 +115,6 @@ public class Utilidades {
                 System.out.println("Fecha introducida incorrecta.");
             }
         }
-
         return fecha;
     }
 

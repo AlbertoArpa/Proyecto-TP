@@ -72,7 +72,7 @@ public class ListaNaves {
 
     // TODO: Muestra por pantalla las naves de la lista con el formato indicado en el enunciado
     public void mostrarNaves() {
-        for (int i = 0; i < naves.length; i++) {
+        for (int i = 0; i < getOcupacion(); i++) {
             System.out.println("\t" + naves[i].getMarca() + " " + naves[i].getModelo() + " (" + naves[i].getMatricula() + "): " + naves[i].getFilas() * naves[i].getColumnas() + " contenedores, hasta " + naves[i].getAlcance() + " UA");
         }
     }
