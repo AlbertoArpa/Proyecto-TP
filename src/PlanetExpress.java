@@ -227,7 +227,8 @@ public class PlanetExpress {
                         System.out.println("Porte no encontrado.");
                     } else {
                         Porte porte = planetExpress.listaPortes.seleccionarPorte(teclado, "Seleccione un porte:", "CANCELAR");
-                        planetExpress.contratarEnvio(teclado, random, porte);
+                        if (porte != null)
+                            planetExpress.contratarEnvio(teclado, random, porte);
                     }
                     break;
                 case 4:  // TODO: Listado de envíos de un cliente

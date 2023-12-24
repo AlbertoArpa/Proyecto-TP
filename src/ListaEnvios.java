@@ -162,7 +162,7 @@ public class ListaEnvios {
         try {
             pw = new PrintWriter(fichero);
             for (int i = 0; i < getOcupacion(); i++) {
-                pw.append("\n" + envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio());
+                pw.append(envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio() + "\n");
             }
             return true;
         } catch (IOException e) {
@@ -186,7 +186,7 @@ public class ListaEnvios {
         try {
             out = new BufferedReader(new FileReader(ficheroEnvios));
             String linea = out.readLine();
-            while (linea != null) {
+            while (linea != null && linea.isEmpty()) {
                 String[] datos = linea.split(";");
                 Porte porte = portes.buscarPorte(datos[1]);
                 Envio envio = new Envio(datos[0], portes.buscarPorte(datos[1]), clientes.buscarClienteEmail(datos[2]), Integer.parseInt(datos[3]), Integer.parseInt(datos[4]), Double.parseDouble(datos[5]));

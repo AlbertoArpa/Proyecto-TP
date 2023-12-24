@@ -280,15 +280,16 @@ public class Porte {
     public void imprimirMatrizHuecos() {
         System.out.print("\t ");
         for (int i = 0; i < huecos[0].length; i++) {
-            System.out.print("  " + ((char) (i + 1) + 'A'));
+            System.out.print("  " + (char) ((i) + 'A'));
         }
         System.out.print("\n");
         for (int j = 0; j < huecos.length; j++) {
-            System.out.printf("%2s", j + 1);
+            System.out.printf("\t%2s", j + 1);
             for (int k = 0; k < huecos[j].length; k++) {
                 if (huecos[j][k]) System.out.print("[X]");
                 else System.out.print("[ ]");
             }
+            System.out.print("\n");
         }
     }
 
@@ -306,7 +307,7 @@ public class Porte {
             pw.println("--------------------------------------------------\n-------- Lista de envíos del porte " +
                     id + " --------\n--------------------------------------------------\nHueco\tCliente");
             for (int i = 1; i < huecos.length; i++) {
-                for (int j = 0; j <= huecos[i].length; j++) {
+                for (int j = 0; j < huecos[i].length; j++) {
                     pw.print(i + "" + (char) (j + 'A'));
                     if (buscarEnvio(i, j + 1) != null) pw.print("\t\t" + buscarEnvio(i, j + 1).getCliente().toString());
                     pw.print("\n");

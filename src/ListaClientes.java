@@ -144,7 +144,7 @@ public class ListaClientes {
             String linea = in.readLine();
             while (linea != null) {
                 String[] datos = linea.split(";");
-                Cliente cliente = new Cliente(datos[0], datos[1], datos[2], Integer.parseInt(datos[3])); //todo: pendiente
+                Cliente cliente = new Cliente(datos[0], datos[1], datos[2], maxEnviosPorCliente);
                 listaClientes.insertarCliente(cliente);
                 linea = in.readLine();
             }
