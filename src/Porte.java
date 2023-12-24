@@ -8,7 +8,7 @@ import java.util.Scanner;
  * definir un vuel.
  *
  * @author Pedro Fernández-Caballero Zamorano
- * @author Alberto Arpa Hervas
+ * @author Alberto Arpa Hervás
  * @version 1.0
  */
 public class Porte {
@@ -332,10 +332,10 @@ public class Porte {
      * @return ejemplo -> "PM0123"
      */
     public static String generarID(Random rand) {
-        StringBuilder result = new StringBuilder("PM");
-        for (int i = 1; i <= 4; i++) result.append(rand.nextInt(10));
-        for (int j = 0; j < result.length(); j++) if (result.charAt(j) == '-') result.deleteCharAt(j);
-        return result.toString();
+        String result = "PM";
+        for (int i = 1; i <= 4; i++) result += (rand.nextInt(10));
+        result = result.replace("-","");
+        return result.replace("-", "");
     }
 
     /**

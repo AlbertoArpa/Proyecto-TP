@@ -6,7 +6,7 @@ import java.util.Scanner;
  * y que tienen que ver con pedir datos al usuario por pantalla.
  *
  * @author Pedro Fernández-Caballero Zamorano
- * @author Alberto Arpa Hervas
+ * @author Alberto Arpa Hervás
  * @version 1.0
  */
 public class Utilidades {

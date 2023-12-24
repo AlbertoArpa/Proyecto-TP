@@ -8,7 +8,7 @@ import static java.lang.Double.valueOf;
  * definir la lista de puerto espaciale.
  *
  * @author Pedro Fernández-Caballero Zamorano
- * @author Alberto Arpa Hervas
+ * @author Alberto Arpa Hervás
  * @version 1.0
  */
 public class ListaPuertosEspaciales {

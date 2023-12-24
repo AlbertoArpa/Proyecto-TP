@@ -8,7 +8,7 @@ import static jdk.nashorn.internal.objects.NativeString.toLowerCase;
  * definir a un cliente.
  *
  * @author Pedro Fernández-Caballero Zamorano
- * @author Alberto Arpa Hervas
+ * @author Alberto Arpa Hervás
  * @version 1.0
  */
 public class Cliente {

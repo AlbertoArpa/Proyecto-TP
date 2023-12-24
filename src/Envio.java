@@ -8,7 +8,7 @@ import java.util.Scanner;
  * definir a un envío.
  *
  * @author Pedro Fernández-Caballero Zamorano
- * @author Alberto Arpa Hervas
+ * @author Alberto Arpa Hervás
  * @version 1.0
  */
 public class Envio {
