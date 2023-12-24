@@ -2,24 +2,30 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Description of the class
+ * ListaNaves es una clase que encapsula las variables correspondientes para
+ * definir la lista de nave.
  *
- * @author
- * @author
+ * @author Pedro Fernández-Caballero Zamorano
+ * @author Alberto Arpa Hervas
  * @version 1.0
  */
 public class ListaNaves {
     private Nave[] naves;
 
     /**
-     * TODO: Constructor de la clase para inicializar la lista a una capacidad determinada
+     * Constructor de la clase para inicializar la lista a una capacidad determinada
      *
-     * @param capacidad
+     * @param capacidad La capacidad inicial de la lista de naves.
      */
     public ListaNaves(int capacidad) {
         naves = new Nave[capacidad];
     }
 
+    /**
+     * Devuelve el número de naves que hay en la lista.
+     *
+     * @return El número de naves en la lista.
+     */
     // TODO: Devuelve el número de naves que hay en la lista
     public int getOcupacion() {
         int i = 0;
@@ -29,21 +35,32 @@ public class ListaNaves {
         return i;
     }
 
+    /**
+     * Verifica si la lista de naves está llena.
+     *
+     * @return `true` si la lista está llena, `false` en caso contrario.
+     */
     // TODO: ¿Está llena la lista de naves?
     public boolean estaLlena() {
         return naves[naves.length - 1] != null;
     }
 
+    /**
+     * Devuelve la nave en la posición especificada por el índice.
+     *
+     * @param posicion El índice de la nave en la lista.
+     * @return La nave en la posición indicada.
+     */
     // TODO: Devuelve nave dado un indice
     public Nave getNave(int posicion) {
         return naves[posicion];
     }
 
     /**
-     * TODO: insertamos una nueva nave en la lista
+     * Insertamos una nueva nave en la lista
      *
-     * @param nave
-     * @return true en caso de que se añada correctamente, false en caso de lista llena o error
+     * @param nave La nave a insertar.
+     * @return `true` si la inserción fue exitosa, `false` en caso de lista llena o error.
      */
     public boolean insertarNave(Nave nave) {
         boolean result = false;
@@ -55,10 +72,10 @@ public class ListaNaves {
     }
 
     /**
-     * TODO: Buscamos la nave a partir de la matricula pasada como parámetro
+     * Buscamos la nave a partir de la matricula pasada como parámetro
      *
-     * @param matricula
-     * @return la nave que encontramos o null si no existe
+     * @param matricula La matrícula de la nave a buscar.
+     * @return La nave encontrada, o `null` si no se encontró ninguna nave con la matrícula especificada.
      */
     public Nave buscarNave(String matricula) {
         Nave result = null;
@@ -70,6 +87,9 @@ public class ListaNaves {
         return result;
     }
 
+    /**
+     * Muestra por pantalla la información de las naves de la lista con el formato indicado en el enunciado.
+     */
     // TODO: Muestra por pantalla las naves de la lista con el formato indicado en el enunciado
     public void mostrarNaves() {
         for (int i = 0; i < getOcupacion(); i++) {
@@ -78,15 +98,15 @@ public class ListaNaves {
     }
 
     /**
-     * TODO: Permite seleccionar una nave existente a partir de su matrícula, y comprueba si dispone de un alcance
-     *  mayor o igual que el pasado como argumento, usando el mensaje pasado como argumento para la solicitud y
-     *  siguiendo el orden y los textos mostrados en el enunciado.
-     *  La función solicita repetidamente la matrícula de la nave hasta que se introduzca una con alcance suficiente
+     * Permite seleccionar una nave existente a partir de su matrícula, y comprueba si dispone de un alcance
+     * mayor o igual que el pasado como argumento, usando el mensaje pasado como argumento para la solicitud y
+     * siguiendo el orden y los textos mostrados en el enunciado.
+     * La función solicita repetidamente la matrícula de la nave hasta que se introduzca una con alcance suficiente
      *
-     * @param teclado
-     * @param mensaje
-     * @param alcance
-     * @return
+     * @param teclado El objeto Scanner utilizado para la entrada de datos.
+     * @param mensaje El mensaje a mostrar para solicitar la matrícula de la nave.
+     * @param alcance El alcance mínimo requerido.
+     * @return La nave seleccionada.
      */
     public Nave seleccionarNave(Scanner teclado, String mensaje, double alcance) {
         Nave nave = buscarNave(Utilidades.leerCadena(teclado, mensaje));
@@ -99,10 +119,10 @@ public class ListaNaves {
 
 
     /**
-     * TODO: Genera un fichero CSV con la lista de Naves, SOBREESCRIBIÉNDOLO
+     * Genera un fichero CSV con la lista de Naves, SOBREESCRIBIÉNDOLO
      *
-     * @param nombre
-     * @return
+     * @param nombre La ruta del archivo CSV donde se escribirán las naves.
+     * @return `true` si la escritura fue exitosa, `false` en caso contrario.
      */
     public boolean escribirNavesCsv(String nombre) {
         PrintWriter pw = null;
@@ -122,11 +142,11 @@ public class ListaNaves {
 
 
     /**
-     * TODO: Genera una lista de naves a partir del fichero CSV, usando el argumento como capacidad máxima de la lista
+     * Genera una lista de naves a partir del fichero CSV, usando el argumento como capacidad máxima de la lista
      *
-     * @param fichero
-     * @param capacidad
-     * @return
+     * @param fichero   La ruta del archivo CSV que contiene la información de las naves.
+     * @param capacidad La capacidad máxima de la lista de naves.
+     * @return La lista de naves generada a partir del archivo CSV.
      */
     public static ListaNaves leerNavesCsv(String fichero, int capacidad) {
         BufferedReader in = null;

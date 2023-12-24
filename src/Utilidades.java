@@ -1,22 +1,24 @@
 import java.util.Scanner;
 
 /**
- * Description of the class
+ * Utilidades es una clase que encapsula
+ * metodos que se repiten a lo largo del programa
+ * y que tienen que ver con pedir datos al usuario por pantalla.
  *
- * @author
- * @author
+ * @author Pedro Fernández-Caballero Zamorano
+ * @author Alberto Arpa Hervas
  * @version 1.0
  */
 public class Utilidades {
 
     /**
-     * TODO: Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     * Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
      *
-     * @param teclado
-     * @param mensaje
-     * @param minimo
-     * @param maximo
-     * @return int numero
+     * @param teclado Scanner utilizado para la entrada de datos.
+     * @param mensaje Mensaje que se muestra solicitando la entrada.
+     * @param minimo  Valor mínimo permitido.
+     * @param maximo  Valor máximo permitido.
+     * @return Número entero dentro de los límites especificados.
      */
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
         System.out.print(mensaje);
@@ -31,13 +33,13 @@ public class Utilidades {
     }
 
     /**
-     * TODO: Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     * Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
      *
-     * @param teclado
-     * @param mensaje
-     * @param minimo
-     * @param maximo
-     * @return long numero
+     * @param teclado Scanner utilizado para la entrada de datos.
+     * @param mensaje Mensaje que se muestra solicitando la entrada.
+     * @param minimo  Valor mínimo permitido.
+     * @param maximo  Valor máximo permitido.
+     * @return Número largo dentro de los límites especificados.
      */
     public static long leerNumero(Scanner teclado, String mensaje, long minimo, long maximo) {
         System.out.print(mensaje);
@@ -53,13 +55,13 @@ public class Utilidades {
     }
 
     /**
-     * TODO: Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     * Solicita un número repetidamente hasta que se introduzca uno correcto (dentro de los límites)
      *
-     * @param teclado
-     * @param mensaje
-     * @param minimo
-     * @param maximo
-     * @return double numero
+     * @param teclado Scanner utilizado para la entrada de datos.
+     * @param mensaje Mensaje que se muestra solicitando la entrada.
+     * @param minimo  Valor mínimo permitido.
+     * @param maximo  Valor máximo permitido.
+     * @return Número decimal dentro de los límites especificados.
      */
     public static double leerNumero(Scanner teclado, String mensaje, double minimo, double maximo) {
         System.out.print(mensaje);
@@ -75,13 +77,13 @@ public class Utilidades {
     }
 
     /**
-     * TODO: TODO: Solicita una letra repetidamente hasta que se introduzca uno correcto (dentro de los límites)
+     * Solicita una letra repetidamente hasta que se introduzca uno correcto (dentro de los límites)
      *
-     * @param teclado
-     * @param mensaje
-     * @param minimo
-     * @param maximo
-     * @return char letra
+     * @param teclado Scanner utilizado para la entrada de datos.
+     * @param mensaje Mensaje que se muestra solicitando la entrada.
+     * @param minimo  Valor mínimo permitido.
+     * @param maximo  Valor máximo permitido.
+     * @return Carácter correspondiente a la letra introducida dentro de los límites especificados.
      */
     public static char leerLetra(Scanner teclado, String mensaje, char minimo, char maximo) {
         System.out.print(mensaje);
@@ -94,11 +96,11 @@ public class Utilidades {
     }
 
     /**
-     * TODO: Solicita una fecha repetidamente hasta que se introduzca una correcta
+     * Solicita una fecha repetidamente hasta que se introduzca una correcta
      *
-     * @param teclado
-     * @param mensaje
-     * @return Fecha
+     * @param teclado Scanner utilizado para la entrada de datos.
+     * @param mensaje Mensaje que se muestra solicitando la entrada.
+     * @return Objeto `Fecha` representando la fecha introducida.
      */
     public static Fecha leerFecha(Scanner teclado, String mensaje) {
         Fecha fecha = null;
@@ -119,11 +121,11 @@ public class Utilidades {
     }
 
     /**
-     * TODO: Solicita una fecha y hora repetidamente hasta que se introduzcan unas correctas
+     * Solicita una fecha y hora repetidamente hasta que se introduzcan unas correctas
      *
-     * @param teclado
-     * @param mensaje
-     * @return Fecha
+     * @param teclado Scanner utilizado para la entrada de datos.
+     * @param mensaje Mensaje que se muestra solicitando la entrada.
+     * @return Objeto `Fecha` representando la fecha y hora introducidas.
      */
     public static Fecha leerFechaHora(Scanner teclado, String mensaje) {
         Fecha fecha = null;
@@ -150,11 +152,11 @@ public class Utilidades {
     }
 
     /**
-     * TODO: Imprime por pantalla el String pasado por parámetro
+     * Imprime por pantalla el String pasado por parámetro
      *
-     * @param teclado
-     * @param s
-     * @return
+     * @param teclado Scanner utilizado para la entrada de datos.
+     * @param s       Mensaje que se muestra solicitando la entrada.
+     * @return Cadena de texto introducida.
      */
     public static String leerCadena(Scanner teclado, String s) {
         System.out.print(s);

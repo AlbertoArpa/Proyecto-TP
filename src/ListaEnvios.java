@@ -2,24 +2,30 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Description of the class
+ * ListaEnvíos es una clase que encapsula las variables correspondientes para
+ * definir la lista de envío.
  *
- * @author
- * @author
+ * @author Pedro Fernández-Caballero Zamorano
+ * @author Alberto Arpa Hervas
  * @version 1.0
  */
 public class ListaEnvios {
     private Envio[] envios;
 
     /**
-     * TODO: Constructor de la clase para inicializar la lista a una capacidad determinada
+     * Constructor de la clase para inicializar la lista a una capacidad determinada
      *
-     * @param capacidad
+     * @param capacidad La capacidad inicial de la lista de envíos.
      */
     public ListaEnvios(int capacidad) {
         envios = new Envio[capacidad];
     }
 
+    /**
+     * Obtiene el número de envíos que hay en la lista.
+     *
+     * @return El número de envíos en la lista.
+     */
     // TODO: Devuelve el número de envíos que hay en la lista
     public int getOcupacion() {
         int i = 0;
@@ -27,21 +33,32 @@ public class ListaEnvios {
         return i;
     }
 
+    /**
+     * Verifica si la lista de envíos está llena.
+     *
+     * @return `true` si la lista está llena, `false` en caso contrario.
+     */
     // TODO: ¿Está llena la lista de envíos?
     public boolean estaLlena() {
         return envios[envios.length - 1] != null;
     }
 
+    /**
+     * Devuelve el envío en la posición especificada por el índice.
+     *
+     * @param i El índice del envío en la lista.
+     * @return El envío en la posición indicada.
+     */
     //TODO: Devuelve el envio dado un indice
     public Envio getEnvio(int i) {
         return envios[i];
     }
 
     /**
-     * TODO: insertamos un nuevo envío en la lista
+     * Insertamos un nuevo envío en la lista
      *
-     * @param envio
-     * @return true en caso de que se añada correctamente, false en caso de lista llena o error
+     * @param envio El envío a insertar.
+     * @return `true` si la inserción fue exitosa, `false` en caso contrario.
      */
     public boolean insertarEnvio(Envio envio) {
         boolean result = false;
@@ -53,10 +70,10 @@ public class ListaEnvios {
     }
 
     /**
-     * TODO: Buscamos el envio a partir del localizador pasado como parámetro
+     * Busca el envio a partir del localizador pasado como parámetro
      *
-     * @param localizador
-     * @return el envio que encontramos o null si no existe
+     * @param localizador El localizador del envío a buscar.
+     * @return El envío encontrado, o `null` si no se encontró ningún envío con el localizador especificado.
      */
     public Envio buscarEnvio(String localizador) {
         Envio result = null;
@@ -67,12 +84,12 @@ public class ListaEnvios {
     }
 
     /**
-     * TODO: Buscamos el envio a partir del idPorte, fila y columna pasados como parámetros
+     * Busca el envio a partir del idPorte, fila y columna pasados como parámetros
      *
-     * @param idPorte
-     * @param fila
-     * @param columna
-     * @return el envio que encontramos o null si no existe
+     * @param idPorte El ID del porte del envío a buscar.
+     * @param fila    La fila del hueco del envío.
+     * @param columna La columna del hueco del envío.
+     * @return El envío encontrado, o `null` si no se encontró ningún envío con los parámetros especificados.
      */
     public Envio buscarEnvio(String idPorte, int fila, int columna) {
         Envio result = null;
@@ -85,10 +102,10 @@ public class ListaEnvios {
     }
 
     /**
-     * TODO: Eliminamos un envio a través del localizador pasado por parámetro
+     * Eliminamos un envio a través del localizador pasado por parámetro
      *
-     * @param localizador
-     * @return True si se ha borrado correctamente, false en cualquier otro caso
+     * @param localizador El localizador del envío a eliminar.
+     * @return `true` si el envío se eliminó correctamente, `false` en caso contrario.
      */
     public boolean eliminarEnvio(String localizador) {
         int i = 0;
@@ -103,7 +120,7 @@ public class ListaEnvios {
     }
 
     /**
-     * TODO: Muestra por pantalla los Envios de la lista, con el formato que aparece
+     * Muestra por pantalla los Envios de la lista, con el formato que aparece
      * en el enunciado
      */
     public void listarEnvios() {
@@ -118,13 +135,13 @@ public class ListaEnvios {
     }
 
     /**
-     * TODO: Permite seleccionar un Envio existente a partir de su localizador, usando el mensaje pasado como argumento
-     *  para la solicitud y siguiendo el orden y los textos mostrados en el enunciado
-     *  La función solicita repetidamente hasta que se introduzca un localizador correcto
+     * Permite seleccionar un Envio existente a partir de su localizador, usando el mensaje pasado como argumento
+     * para la solicitud y siguiendo el orden y los textos mostrados en el enunciado
+     * La función solicita repetidamente hasta que se introduzca un localizador correcto
      *
-     * @param teclado
-     * @param mensaje
-     * @return
+     * @param teclado El objeto Scanner utilizado para la entrada de datos.
+     * @param mensaje El mensaje a mostrar para solicitar el localizador del envío.
+     * @return El envío seleccionado.
      */
     public Envio seleccionarEnvio(Scanner teclado, String mensaje) {
         Envio envio = buscarEnvio(Utilidades.leerCadena(teclado, mensaje));
@@ -135,10 +152,10 @@ public class ListaEnvios {
 
 
     /**
-     * TODO: Añade los Envios al final de un fichero CSV, SIN SOBREESCRIBIR la información
+     * : Añade los Envios al final de un fichero CSV, SIN SOBREESCRIBIR la información
      *
-     * @param fichero
-     * @return
+     * @param fichero La ruta del archivo CSV donde se añadirán los envíos.
+     * @return `true` si la adición fue exitosa, `false` en caso contrario.
      */
     public boolean aniadirEnviosCsv(String fichero) {
         PrintWriter pw = null;
@@ -157,11 +174,11 @@ public class ListaEnvios {
     }
 
     /**
-     * TODO: Lee los Envios del fichero CSV y los añade a las listas de sus respectivos Portes y Clientes
+     * Lee los Envios del fichero CSV y los añade a las listas de sus respectivos Portes y Clientes
      *
-     * @param ficheroEnvios
-     * @param portes
-     * @param clientes
+     * @param ficheroEnvios La ruta del archivo CSV que contiene la información de los envíos.
+     * @param portes        La lista de portes a la que se añadirán los envíos.
+     * @param clientes      La lista de clientes a la que se añadirán los envíos.
      */
     public static void leerEnviosCsv(String ficheroEnvios, ListaPortes portes, ListaClientes clientes) {
         BufferedReader out = null;

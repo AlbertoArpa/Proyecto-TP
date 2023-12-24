@@ -22,7 +22,7 @@ public class PlanetExpress {
 
 
     /**
-     * TODO: Rellene el constructor de la clase
+     * El constructor de la clase
      *
      * @param maxPuertosEspaciales Máximo número de puertos espaciales que tendrá la lista de puertos espaciales de PlanetExpress App.
      * @param maxNaves             Máximo número de naves que tendrá la lista de naves de PlanetExpress App.
@@ -40,8 +40,8 @@ public class PlanetExpress {
     }
 
     /**
-     * TODO: Metodo para leer los datos de los ficheros específicados en el enunciado y los agrega a
-     *  la información de PlanetExpress (listaPuertosEspaciales, listaNaves, listaPortes, listaClientes)
+     * Metodo para leer los datos de los ficheros específicados en el enunciado y los agrega a
+     * la información de PlanetExpress (listaPuertosEspaciales, listaNaves, listaPortes, listaClientes)
      *
      * @param ficheroPuertos
      * @param ficheroNaves
@@ -58,8 +58,8 @@ public class PlanetExpress {
     }
 
     /**
-     * TODO: Metodo para almacenar los datos de PlanetExpress en los ficheros .csv especificados
-     *  en el enunciado de la práctica
+     * Metodo para almacenar los datos de PlanetExpress en los ficheros .csv especificados
+     * en el enunciado de la práctica
      *
      * @param ficheroPuertos
      * @param ficheroNaves
@@ -102,10 +102,10 @@ public class PlanetExpress {
     }
 
     /**
-     * TODO: Metodo para buscar los portes especificados tal y como aparece en el enunciado de la práctica,
-     *  Devuelve una lista de los portes entre dos puertos espaciales con una fecha de salida solicitados por teclado
-     *  al usuario en el orden y con los textos establecidos (tomar como referencia los ejemplos de ejecución en el
-     *  enunciado de la prática)
+     * Metodo para buscar los portes especificados tal y como aparece en el enunciado de la práctica,
+     * Devuelve una lista de los portes entre dos puertos espaciales con una fecha de salida solicitados por teclado
+     * al usuario en el orden y con los textos establecidos (tomar como referencia los ejemplos de ejecución en el
+     * enunciado de la prática)
      *
      * @param teclado
      * @return
@@ -119,9 +119,9 @@ public class PlanetExpress {
     }
 
     /**
-     * TODO: Metodo para contratar un envio tal y como se indica en el enunciado de la práctica. Se contrata un envio para un porte
-     *  especificado, pidiendo por teclado los datos necesarios al usuario en el orden y con los textos (tomar como referencia los
-     *  ejemplos de ejecución en el enunciado de la prática)
+     * Metodo para contratar un envio tal y como se indica en el enunciado de la práctica. Se contrata un envio para un porte
+     * especificado, pidiendo por teclado los datos necesarios al usuario en el orden y con los textos (tomar como referencia los
+     * ejemplos de ejecución en el enunciado de la prática)
      *
      * @param teclado
      * @param rand
@@ -157,7 +157,7 @@ public class PlanetExpress {
     }
 
     /**
-     * TODO Metodo statico con la interfaz del menú de entrada a la App.
+     * Metodo statico con la interfaz del menú de entrada a la App.
      * Tiene que coincidir con las trazas de ejecución que se muestran en el enunciado
      *
      * @param teclado
@@ -174,9 +174,9 @@ public class PlanetExpress {
     }
 
     /**
-     * TODO: Método Main que carga los datos de los ficheros CSV pasados por argumento (consola) en PlanetExpress,
-     *  llama iterativamente al menú y realiza la opción especificada hasta que se indique la opción Salir. Al finalizar
-     *  guarda los datos de PlanetExpress en los mismos ficheros CSV.
+     * Método Main que carga los datos de los ficheros CSV pasados por argumento (consola) en PlanetExpress,
+     * llama iterativamente al menú y realiza la opción especificada hasta que se indique la opción Salir. Al finalizar
+     * guarda los datos de PlanetExpress en los mismos ficheros CSV.
      *
      * @param args argumentos de la línea de comandos, recibe **10 argumentos** estrictamente en el siguiente orden:
      *             1. Número máximo de puertos espaciales que tendrá la lista de puertos espaciales de PlanetExpress App.

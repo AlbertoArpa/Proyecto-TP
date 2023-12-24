@@ -4,30 +4,54 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * Description of the class
+ * Envío es una clase que encapsula las variables correspondientes para
+ * definir a un envío.
  *
- * @author
- * @author
+ * @author Pedro Fernández-Caballero Zamorano
+ * @author Alberto Arpa Hervas
  * @version 1.0
  */
 public class Envio {
 
+    /**
+     * Localizador del Billete.
+     */
     private String localizador;
+
+    /**
+     * Porte.
+     */
     private Porte porte;
+
+    /**
+     * Cliente al que pertenece el Envío.
+     */
     private Cliente cliente;
+
+    /**
+     * fila.
+     */
     private int fila;
+
+    /**
+     * columna.
+     */
     private int columna;
+
+    /**
+     * Precio del Envío.
+     */
     private double precio;
 
     /**
-     * Constructor of the class
+     * Constructor de la clase Envio.
      *
-     * @param localizador
-     * @param porte
-     * @param cliente
-     * @param fila
-     * @param columna
-     * @param precio
+     * @param localizador El localizador único del envío.
+     * @param porte       El porte asociado al envío.
+     * @param cliente     El cliente que realiza el envío.
+     * @param fila        La fila del hueco en el muelle.
+     * @param columna     La columna del hueco en el muelle.
+     * @param precio      El precio del envío.
      */
     public Envio(String localizador, Porte porte, Cliente cliente, int fila, int columna, double precio) {
         this.localizador = localizador;
@@ -38,31 +62,66 @@ public class Envio {
         this.precio = precio;
     }
 
+    /**
+     * Obtiene el localizador del envío.
+     *
+     * @return El localizador del envío.
+     */
     public String getLocalizador() {
         return localizador;
     }
 
+    /**
+     * Obtiene el porte asociado al envío.
+     *
+     * @return El porte asociado al envío.
+     */
     public Porte getPorte() {
         return porte;
     }
 
+    /**
+     * Obtiene el cliente que realiza el envío.
+     *
+     * @return El cliente que realiza el envío.
+     */
     public Cliente getCliente() {
         return cliente;
     }
 
+    /**
+     * Obtiene la fila del hueco en el muelle.
+     *
+     * @return La fila del hueco en el muelle.
+     */
     public int getFila() {
         return fila;
     }
 
+    /**
+     * Obtiene la columna del hueco en el muelle.
+     *
+     * @return La columna del hueco en el muelle.
+     */
     public int getColumna() {
         return columna;
     }
 
+    /**
+     * Obtiene el hueco en formato de cadena (ejemplos: "1A", "3D").
+     *
+     * @return El hueco en formato de cadena.
+     */
     // TODO: Ejemplos: "1A" para el hueco con fila 1 y columna 1, "3D" para el hueco con fila 3 y columna 4
     public String getHueco() {
         return fila + "" + (char) ((columna) + 'A' - 1);
     }
 
+    /**
+     * Obtiene el precio del envío.
+     *
+     * @return El precio del envío.
+     */
     public double getPrecio() {
         return precio;
     }
@@ -73,6 +132,11 @@ public class Envio {
                 porte.getDestino().toStringSimple() + " M" + porte.getMuelleDestino() + " (" + porte.getDestino() + ") en hueco " + getHueco() + " por " + precio + " SSD";
     }
 
+    /**
+     * Cancela este envío, eliminándolo de la lista de envíos del porte y del cliente correspondiente.
+     *
+     * @return `true` si la cancelación fue exitosa, `false` en caso contrario.
+     */
     // TODO: Cancela este envío, eliminándolo de la lista de envíos del porte y del cliente correspondiente
     public boolean cancelar() {
         porte.getListaEnvios().eliminarEnvio(localizador);
@@ -120,13 +184,13 @@ public class Envio {
     }
 
     /**
-     * TODO: Genera un localizador de envío. Este consistirá en una cadena de 15 caracteres, de los cuales los seis
-     *   primeros será el ID del porte asociado y los 9 siguientes serán letras mayúsculas aleatorias. Ejemplo: PM0123ABCD
-     *   NOTA: Usar el objeto rand pasado como argumento para la parte aleatoria.
+     * Genera un localizador de envío. Este consistirá en una cadena de 15 caracteres, de los cuales los seis
+     * primeros será el ID del porte asociado y los 9 siguientes serán letras mayúsculas aleatorias. Ejemplo: PM0123ABCD
+     * NOTA: Usar el objeto rand pasado como argumento para la parte aleatoria.
      *
-     * @param rand
-     * @param idPorte
-     * @return
+     * @param rand    El objeto Random utilizado para generar letras aleatorias.
+     * @param idPorte El ID del porte asociado al envío.
+     * @return El localizador generado.
      */
     public static String generarLocalizador(Random rand, String idPorte) {
         StringBuilder localizador = new StringBuilder(idPorte);
@@ -138,15 +202,15 @@ public class Envio {
 
 
     /**
-     * TODO: Método para crear un nuevo envío para un porte y cliente específico, pidiendo por teclado los datos
-     *  necesarios al usuario en el orden y con los textos indicados en los ejemplos de ejecución del enunciado.
-     *  La función solicita repetidamente los parámetros hasta que sean correctos
+     * Método para crear un nuevo envío para un porte y cliente específico, pidiendo por teclado los datos
+     * necesarios al usuario en el orden y con los textos indicados en los ejemplos de ejecución del enunciado.
+     * La función solicita repetidamente los parámetros hasta que sean correctos
      *
-     * @param teclado
-     * @param rand
-     * @param porte
-     * @param cliente
-     * @return Envio para el porte y cliente especificados
+     * @param teclado El objeto Scanner utilizado para la entrada de datos.
+     * @param rand    El objeto Random utilizado para generar el localizador.
+     * @param porte   El porte asociado al envío.
+     * @param cliente El cliente que realiza el envío.
+     * @return El envío creado.
      */
     public static Envio altaEnvio(Scanner teclado, Random rand, Porte porte, Cliente cliente) {
         String localizador = generarLocalizador(rand, porte.getID());
