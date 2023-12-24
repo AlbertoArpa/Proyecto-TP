@@ -165,11 +165,12 @@ public class ListaEnvios {
                 pw.append("\n" + envios[i].getLocalizador() + ";" + envios[i].getPorte().getID() + ";" + envios[i].getCliente().getEmail() + ";" + envios[i].getFila() + ";" + envios[i].getColumna() + ";" + envios[i].getPrecio());
             }
             return true;
-        } catch (Exception e) {
-            System.out.println("Error de escritura en fichero Envíos.");
+        } catch (IOException e) {
+            System.out.println("Error de escritura en fichero " + fichero + ".");
             return false;
         } finally {
             if (pw != null) pw.close();
+            else System.out.println("Error de cierre de fichero " + fichero + ".");
         }
     }
 
@@ -194,15 +195,17 @@ public class ListaEnvios {
                 clientes.buscarClienteEmail(datos[2]).aniadirEnvio(envio);
                 linea = out.readLine();
             }
-        } catch (IOException ex) {
-            System.out.println("Error de lectura de fichero Envios.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Fichero " + ficheroEnvios + " no encontrado.");
+        } catch (IOException e){
+            System.out.println("Error de lectura de fichero " + ficheroEnvios + ".");
         } finally {
             try {
                 if (out != null) {
                     out.close();
                 }
             } catch (IOException ex) {
-                System.out.println("Error de cierre de fichero Envios.");
+                System.out.println("Error de cierre de fichero " + ficheroEnvios + ".");
             }
         }
     }

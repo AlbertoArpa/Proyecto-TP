@@ -5,8 +5,7 @@
  * para definir eventos temporales concretos, como la
  * salida o llegada de un vuelo.
  *
- * @author Pedro Fernández-Caballero Zamorano
- * @author Alberto Arpa Hervás
+ * @author Cristian Ramírez Atencia
  * @version 1.0
  */
 public class Fecha {

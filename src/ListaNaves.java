@@ -133,10 +133,12 @@ public class ListaNaves {
             }
             pw.close();
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.out.println("Error de escritura en fichero " + nombre + ".");
             return false;
         } finally {
             if (pw != null) pw.close();
+            else System.out.println("Error de cierre de fichero " + nombre + ".");
         }
     }
 
@@ -167,9 +169,9 @@ public class ListaNaves {
                 linea = in.readLine();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Fichero Naves no encontrado.");
-        } catch (IOException ex) {
-            System.out.println("Error de lectura de fichero Naves.");
+            System.out.println("Fichero " + fichero + " no encontrado.");
+        } catch (IOException e) {
+            System.out.println("Error de lectura de fichero " + fichero + ".");
         } finally {
             try {
                 if (in != null) {

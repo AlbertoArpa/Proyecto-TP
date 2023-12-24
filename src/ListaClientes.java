@@ -118,10 +118,12 @@ public class ListaClientes {
                 pw.println(clientes[i].getNombre() + ";" + clientes[i].getApellidos() + ";" + clientes[i].getEmail());
             }
             return true;
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+            System.out.println("Error de escritura en fichero " + pw + ".");
             return false;
         } finally {
             if (pw != null) pw.close();
+            else System.out.println("Error de cierre de fichero " + pw + ".");
         }
     }
 
@@ -147,9 +149,9 @@ public class ListaClientes {
                 linea = in.readLine();
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("Fichero Clientes no encontrado.");
+            System.out.println("Fichero " + fichero + " no encontrado.");
         } catch (IOException ex) {
-            System.out.println("Error de lectura de fichero Clientes.");
+            System.out.println("Error de lectura de fichero " + fichero + ".");
         } finally {
             try {
                 if (in != null) {

@@ -119,10 +119,12 @@ public class ListaPuertosEspaciales {
                 pw.println(lista[i].getNombre() + ";" + lista[i].getCodigo() + ";" + lista[i].getRadio() + ";" + lista[i].getAzimut() + ";" + lista[i].getPolar() + ";" + lista[i].getMuelles() + ";");
             }
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.out.println("Error de escritura en fichero " + nombre + ".");
             return false;
         } finally {
             if (pw != null) pw.close();
+            else System.out.println("Error de cierre de fichero " + nombre + ".");
         }
     }
 
@@ -155,16 +157,16 @@ public class ListaPuertosEspaciales {
                 linea = in.readLine();
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("Fichero Puertos Espaciales no encontrado.");
+            System.out.println("Fichero " + fichero + " no encontrado.");
         } catch (IOException ex) {
-            System.out.println("Error de lectura de fichero Puertos Espaciales.");
+            System.out.println("Error de lectura de fichero " + fichero + ".");
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
             } catch (IOException ex) {
-                System.out.println("Error de cierre de fichero Puertos Espaciales.");
+                System.out.println("Error de cierre de fichero " + fichero + ".");
             }
         }
         return listaPuertosEspaciales;

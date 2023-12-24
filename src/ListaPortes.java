@@ -155,10 +155,12 @@ public class ListaPortes {
                         ";" + portes[i].getDestino().getCodigo() + ";" + portes[i].getMuelleDestino() + ";" + portes[i].getLlegada() + ";" + portes[i].getPrecio());
             }
             return true;
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+            System.out.println("Error de escritura en fichero " + fichero + ".");
             return false;
         } finally {
             if (pw != null) pw.close();
+            else System.out.println("Error de cierre de fichero " + fichero + ".");
         }
     }
 
@@ -185,9 +187,9 @@ public class ListaPortes {
                 linea = in.readLine();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Fichero Portes no encontrado.");
+            System.out.println("Fichero " + fichero + " no encontrado.");
         } catch (IOException ex) {
-            System.out.println("Error de lectura de fichero Portes.");
+            System.out.println("Error de lectura de fichero " + fichero + ".");
         } finally {
             try {
                 if (in != null) {
